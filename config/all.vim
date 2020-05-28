@@ -115,3 +115,47 @@ let g:UltiSnipsExpandTrigger = '<C-l>'
 let g:UltiSnipsListSnippets = ''
 let g:UltiSnipsJumpForwardTrigger = '<C-f>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-b>'
+
+
+"""""" Vimwiki 
+let g:vimwiki_use_calendar = 1
+let g:vimwiki_hl_headers = 1
+let g:vimwiki_hl_cb_checked = 1
+let g:vimwiki_autowriteall = 1
+let g:vimwiki_html_header_numbering = 1
+let g:vimwiki_html_header_numbering_sym = '.'
+let g:vimwiki_list = [
+\   { 'diary_header': 'Daily',
+\     'diary_caption_level': -1,
+\     'links_space_char': '_',
+\     'auto_diary_index': 1,
+\     'auto_toc': 1,
+\     'auto_generate_tags': 1,
+\     'auto_generate_links': 0,
+\     'path': '~/docs/wiki/',
+\     'exclude_files': ['**/README.md'],
+\     'syntax': 'markdown',
+\     'ext': '.md' },
+\   { 'path': '~/docs/orion/',
+\     'links_space_char': '_',
+\     'syntax': 'markdown',
+\     'ext': '.md' }
+\ ]
+
+" nnoremap <silent> <Leader>W :<C-u>VimwikiTabIndex<CR>
+nnoremap <silent> <Leader>W :<C-u>VimwikiIndex<CR>
+
+
+
+"""""" Quickhl
+nmap <Leader>, <Plug>(quickhl-manual-this)
+xmap <Leader>, <Plug>(quickhl-manual-this)
+
+
+"""""" Junegun/vim-peekaboo
+nnoremap <buffer> <silent> " :<c-u>call peekaboo#peek(v:count1, 'quote',  0)<cr>
+xnoremap <buffer> <silent> " :<c-u>call peekaboo#peek(v:count1, 'quote',  1)<cr>
+nnoremap <buffer> <silent> @ :<c-u>call peekaboo#peek(v:count1, 'replay', 0)<cr>
+inoremap <buffer> <silent> <c-r> <c-o>:call peekaboo#peek(1, 'ctrl-r',  0)<cr>
+
+

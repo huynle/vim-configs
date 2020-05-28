@@ -60,9 +60,17 @@ endfunction
 let g:denite_position = get(g:, 'denite_position', '')
 call s:denite_resize(g:denite_position)
 
-" MATCHERS
+" FILTERS definied here
+call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
+			\ ['*~', '*.o', '*.exe', '*.bak',
+      \  '.DS_Store', '*.pyc', '*.sw[po]', '*.class',
+      \  '.hg/', '.git/', '.bzr/', '.svn/',
+      \  'tags', 'tags-*', '.project/', 'cscope*', 'plugged/'])
+
+" MATCHERS for all the different source names
 " Default is 'matcher/fuzzy'
 call denite#custom#source('tag', 'matchers', ['matcher/substring'])
+call denite#custom#source('file/rec', 'matchers', ['matcher/substring', 'matcher/ignore_globs'])
 
 " SORTERS
 " Default is 'sorter/rank'

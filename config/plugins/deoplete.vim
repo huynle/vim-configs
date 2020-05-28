@@ -1,7 +1,7 @@
 "" deoplete for nvim
 "" ---
 
-let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 0
 set completeopt-=preview
 set completeopt+=noselect
 
@@ -120,21 +120,32 @@ inoremap <expr><C-l> deoplete#complete_common_string()
 " 	\ : deoplete#manual_complete()))
 "
 " inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
 imap <expr><TAB>
 		\ pumvisible()? "\<C-y>" :
 		\ <SID>check_back_space() ? "\<TAB>" :
 		\ deoplete#mappings#manual_complete()
 
-" inoremap <silent><expr> <TAB>
-" 		\ pumvisible() ? "\<C-n>" :
-" 		\ <SID>check_back_space() ? "\<Tab>" :
-" 		\ deoplete#complete()
 function! s:check_back_space() abort
-		let col = col('.') - 1
-		return !col || getline('.')[col - 1]  =~# '\s'
+        let col = col('.') - 1
+        return ! col || getline('.')[col - 1] =~? '\s'
 endfunction
 
-" "inoremap <expr><S-Tab>  pumvisible() ? "\<Up>" : "\<C-h>"
+"" this is taken care of by 'noselect' option by completeopt
+function s:smart_carriage_return()
+	let g:info=complete_info()
+   " if get(g:info, 'pum_visible', -1) == 0 || get(g:info, 'selected', -1) == 0
+   if get(g:info, 'selected', -1) == 0
+			echom "got here 1"
+      return "\<CR>"
+		elseif get(g:info, 'pum_visible', -1) == 1 && get(g:info, 'selected', -1) == 0
+			echom "got here"
+			return "\<CR>"
+		else
+      return "\<C-y>"
+   endif
+endfunction
+
 
 function! s:is_whitespace() "{{{
 	let col = col('.') - 1

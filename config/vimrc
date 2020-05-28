@@ -63,6 +63,8 @@ Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/vim-asterisk'
 Plug 'rhysd/accelerated-jk'
 Plug 't9md/vim-quickhl'
+Plug 'junegunn/vim-peekaboo'
+
 
 " for file find and all
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -97,7 +99,7 @@ Plug 'Shougo/deoplete-clangx'
 " GO completion
 Plug 'deoplete-plugins/deoplete-go'
 " Python Completion
-Plug 'deoplete-plugins/deoplete-jedi'
+" Plug 'deoplete-plugins/deoplete-jedi'
 " for tag completion
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'deoplete-plugins/deoplete-tag'
@@ -110,9 +112,15 @@ Plug 'sbdchd/neoformat'
 Plug 'SirVer/ultisnips'
 
 
+
+
 " ==========================================
 " Odds and Ends
 Plug 'mechatroner/rainbow_csv'
+
+Plug 'vimwiki/vimwiki'
+
+
 
 call plug#end()
 

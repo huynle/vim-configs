@@ -13,6 +13,7 @@ set virtualedit=block        " Position cursor anywhere in visual block
 set synmaxcol=1000           " Don't syntax highlight long lines
 set formatoptions-=t         " Don't auto-wrap text
 set tags=./tags;
+set clipboard+=unnamedplus
 
 " Tabs and Indents {{{
 " ----------------

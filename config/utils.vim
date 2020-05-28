@@ -1,49 +1,20 @@
 " Commands
 "---------------------------------------------------------
 
-augroup MyAutoCmd
-  " clear group first, then everything else can be loaded
-  autocmd!
+" augroup MyAutoCmd
+"   " clear group first, then everything else can be loaded
+"   autocmd!
   
-  " you can also write it like the other autocmd below
-  autocmd BufRead,BufNewFile *.dr set filetype=python
+"   " you can also write it like the other autocmd below
+"   autocmd BufRead,BufNewFile *.dr set filetype=python
 
-  """"" TAGs: Covered by gutentags
-  " autocmd BufWritePost *.cpp,*.h,*.c,*.py,*.vim call UpdateTags()
-  " autocmd BufWritePost *.cpp,*.h,*.c,*.py call UpdateCscope()
-augroup END
+"   """"" TAGs: Covered by gutentags
+"   " autocmd BufWritePost *.cpp,*.h,*.c,*.py,*.vim call UpdateTags()
+"   " autocmd BufWritePost *.cpp,*.h,*.c,*.py call UpdateCscope()
+ 
 
+" augroup END
 
-" When editing a file, always jump to the last known cursor position.
-" Don't do it when the position is invalid or when inside an event handler
-autocmd MyAutoCmd BufReadPost *
-  \ if &ft !~ '^git\c' && ! &diff && line("'\"") > 0 && line("'\"") <= line("$")
-  \|   exe 'normal! g`"zvzz'
-  \| endif
-
-" Disable paste after leaving insert mode
-autocmd MyAutoCmd InsertLeave *
-    \ if &paste | set nopaste mouse=a | echo 'nopaste' | endif |
-    \ if &l:diff | diffupdate | endif
-
-" Open Quickfix window automatically
-autocmd MyAutoCmd QuickFixCmdPost [^l]* leftabove copen
-  \ | wincmd p | redraw!
-autocmd MyAutoCmd QuickFixCmdPost l* leftabove lopen
-  \ | wincmd p | redraw!
-
-" Fix window position of help/quickfix
-autocmd MyAutoCmd FileType help if &l:buftype ==# 'help'
-  \ | wincmd K | endif
-autocmd MyAutoCmd FileType qf   if &l:buftype ==# 'quickfix'
-  \ | wincmd J | endif
-
-" Update diff
-autocmd MyAutoCmd InsertLeave * if &l:diff | diffupdate | endif
-
-" Open quickfix in split
-autocmd MyAutoCmd FileType qf nnoremap <buffer> sv :call <SID>OpenQuickfix("vsplit")<CR>
-autocmd MyAutoCmd FileType qf nnoremap <buffer> sg :call <SID>OpenQuickfix("split")<CR>
 
 command! ZoomToggle call s:ZoomToggle()
 
@@ -102,4 +73,8 @@ function! s:ZoomToggle() "{{{
   endif
 endfunction "}}}
 
+" a hacky way to get copy and paste through a shared file
+vmap <C-c> :w! ~/.vbuf<CR>
+nmap <C-c> :.w! ~/.vbuf<CR>
+nmap <C-v> :r ~/.vbuf<CR>
 "}}}

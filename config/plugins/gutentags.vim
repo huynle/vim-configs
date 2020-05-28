@@ -1,6 +1,12 @@
 " Guttentags Settings
 " Look at using .gutctags
 
+function! MyCustomGutentagsEnableFunc(path) abort
+    return fnamemodify(a:path, ':e') != 'go'
+endfunction
+
+let g:gutentags_enabled_user_func = 'MyCustomGutentagsEnableFunc'
+
 " Turn on for debugging purpose
 let g:gutentags_define_advanced_commands = 1
 let g:gutentags_trace = 0
@@ -19,7 +25,9 @@ endif
 
 
 " taking out cache_dir in favor of getting tags and cscope to work together
-let g:gutentags_cache_dir = '.project/tags'
+" let g:gutentags_cache_dir = '.project/tags' " this creates a .project/tags
+" dir in all the opened locations
+let g:gutentags_cache_dir = expand('$VARPATH/tags')
 let g:gutentags_resolve_symlinks = 1
 let g:gutentags_generate_on_write = 1
 let g:gutentags_generate_on_missing = 0

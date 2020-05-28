@@ -27,12 +27,12 @@ function! s:main()
 			let l:virtualenv = ''
 
 			if ! empty($PYENV_ROOT)
-				let l:virtualenv = $PYENV_ROOT . '/versions/neovim/bin/python'
+				let l:virtualenv = expand('$PYENV_ROOT/versions/neovim/bin/python')
 			endif
 
 			if empty(l:virtualenv) || ! filereadable(l:virtualenv)
 				" Fallback to old virtualenv location
-				let l:virtualenv = $VARPATH. '/venv/neovim3/bin/python'
+				let l:virtualenv = expand('$VARPATH/venv/neovim/bin/python')
 			endif
 
 			if filereadable(l:virtualenv)

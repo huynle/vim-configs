@@ -23,7 +23,6 @@ endfunction
 function! s:main()
 	if has('vim_starting')
 		if has('nvim')
-			echom "gothere"
 			" Try using pyenv virtualenv called 'neovim'
 			let l:virtualenv = ''
 
@@ -47,6 +46,7 @@ function! s:main()
 				set pyxversion=2
 			endif
 		endif
+	endif
 endfunction
 
 call s:main()

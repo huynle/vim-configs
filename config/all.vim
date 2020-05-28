@@ -130,6 +130,7 @@ let g:vimwiki_list = [
 \     'links_space_char': '_',
 \     'auto_diary_index': 1,
 \     'auto_toc': 1,
+\     'auto_tags': 1,
 \     'auto_generate_tags': 1,
 \     'auto_generate_links': 0,
 \     'path': '~/docs/wiki/',

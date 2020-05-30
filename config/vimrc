@@ -151,6 +151,8 @@ Plug 'SirVer/ultisnips'
 Plug 'mechatroner/rainbow_csv'
 
 Plug 'vimwiki/vimwiki'
+Plug 'ferrine/md-img-paste.vim'
+
 
 
 

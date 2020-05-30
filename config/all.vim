@@ -121,18 +121,21 @@ let g:UltiSnipsJumpBackwardTrigger = '<C-b>'
 let g:vimwiki_use_calendar = 1
 let g:vimwiki_hl_headers = 1
 let g:vimwiki_hl_cb_checked = 1
+let g:vimwiki_tags_header = 'Generated Tags'
+let g:vimwiki_markdown_header_style = 0
 let g:vimwiki_autowriteall = 1
+let g:vimwiki_auto_header = 1
 let g:vimwiki_html_header_numbering = 1
 let g:vimwiki_html_header_numbering_sym = '.'
 let g:vimwiki_list = [
 \   { 'diary_header': 'Daily',
 \     'diary_caption_level': -1,
-\     'links_space_char': '_',
+\     'links_space_char': '-',
 \     'auto_diary_index': 1,
 \     'auto_toc': 1,
 \     'auto_tags': 1,
 \     'auto_generate_tags': 1,
-\     'auto_generate_links': 0,
+\     'auto_generate_links': 1,
 \     'path': '~/docs/wiki/',
 \     'exclude_files': ['**/README.md'],
 \     'syntax': 'markdown',

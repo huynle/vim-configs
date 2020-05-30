@@ -75,6 +75,12 @@ augroup MyAutoCmd
 	autocmd FileType qf nnoremap <buffer> sv :call <SID>OpenQuickfix("vsplit")<CR>
 	autocmd FileType qf nnoremap <buffer> sg :call <SID>OpenQuickfix("split")<CR>
 
+	" open vimwiki in split
+	" autocmd FileType vimwiki nnoremap sg <Plug>VimwikiSplitLink<CR>
+
+  " autocmd FileType vimwiki nnoremap <silent><buffer> <CR> <Plug>VimwikiSplitLink<CR>
+
+
 augroup END
 
 " }}}

@@ -77,4 +77,8 @@ endfunction "}}}
 vmap <C-c> :w! ~/.vbuf<CR>
 nmap <C-c> :.w! ~/.vbuf<CR>
 nmap <C-v> :r ~/.vbuf<CR>
+
+"" change directory, helpful for vimwiki to switch directory for grepping
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+
 "}}}

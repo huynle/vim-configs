@@ -132,7 +132,7 @@ let g:vimwiki_list = [
 \     'diary_caption_level': -1,
 \     'links_space_char': '-',
 \     'auto_diary_index': 1,
-\     'auto_toc': 1,
+\     'auto_toc': 0,
 \     'auto_tags': 1,
 \     'auto_generate_tags': 1,
 \     'auto_generate_links': 1,
@@ -146,9 +146,9 @@ let g:vimwiki_list = [
 \     'ext': '.md' }
 \ ]
 
+
 " nnoremap <silent> <Leader>W :<C-u>VimwikiTabIndex<CR>
 nnoremap <silent> <Leader>W :<C-u>VimwikiIndex<CR>
-
 
 
 """""" Quickhl

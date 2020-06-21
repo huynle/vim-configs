@@ -74,9 +74,9 @@ function! s:ZoomToggle() "{{{
 endfunction "}}}
 
 " a hacky way to get copy and paste through a shared file
-vmap <C-c> :w! ~/.vbuf<CR>
-nmap <C-c> :.w! ~/.vbuf<CR>
-nmap <C-v> :r ~/.vbuf<CR>
+vmap <leader>y :w! ~/.vbuf<CR>
+nmap <leader>y :.w! ~/.vbuf<CR>
+nmap <leader>p :r ~/.vbuf<CR>
 
 "" change directory, helpful for vimwiki to switch directory for grepping
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>

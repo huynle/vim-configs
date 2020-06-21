@@ -84,8 +84,21 @@ call denite#custom#source(
 
 " FIND and GREP COMMANDS
 " ---
+" Ripgrep
+if executable('rg')
+	call denite#custom#var('file/rec', 'command',
+		\ ['rg', '--files', '--glob', '!.git'])
+
+	call denite#custom#var('grep', {
+		\ 'command': ['rg'],
+		\ 'default_opts': ['-i', '--vimgrep', '--no-heading'],
+		\ 'recursive_opts': [],
+		\ 'pattern_opt': ['--regexp'],
+		\ 'final_opts': [],
+		\ 'separator': ['--'],
+		\ })
 " The Silver Searcher (ag)
-if executable('ag')
+elseif executable('ag')
 	call denite#custom#var('file/rec', 'command',
 		\ ['ag', '--hidden', '--follow', '--nocolor', '--nogroup', '-g', ''])
 
@@ -100,19 +113,6 @@ if executable('ag')
 		\ 'separator': ['--'],
 		\ })
 
-" Ripgrep
-elseif executable('rg')
-	call denite#custom#var('file/rec', 'command',
-		\ ['rg', '--files', '--glob', '!.git'])
-
-	call denite#custom#var('grep', {
-		\ 'command': ['rg'],
-		\ 'default_opts': ['-i', '--vimgrep', '--no-heading'],
-		\ 'recursive_opts': [],
-		\ 'pattern_opt': ['--regexp'],
-		\ 'final_opts': [],
-		\ 'separator': ['--'],
-		\ })
 
 " Ack command
 elseif executable('ack')
@@ -264,5 +264,8 @@ function! s:get_selection(cmdtype)
 endfunction
 
 
+let g:neomru#directory_mru_path = $VARPATH. '/mru/dir'
+let g:neomru#file_mru_path = $VARPATH. '/mru/file'
+let g:unite_source_file_mru_limit = 5000
 
 " vim: set ts=2 sw=2 tw=80 noet :

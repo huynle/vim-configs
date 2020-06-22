@@ -1,3 +1,16 @@
+""" should be general settings that we can use to create a vim minimal setting
+"" make some sane defaults to run vim without plugins
+"" used for editing files on servers
+
+let g:mapleader="\<Space>"
+let g:maplocalleader=';'
+
+" Release keymappings for other purposes
+nnoremap <Space>  <Nop>
+xnoremap <Space>  <Nop>
+nnoremap ;        <Nop>
+xnoremap ;        <Nop>
+
 " General {{{
 set mouse=nv                 " Disable mouse in command-line mode
 set modeline                 " automatically setting options from modelines
@@ -43,7 +56,7 @@ set comments=sl:/*,mb:\ *,elx:\ */ " intelligent comments
 " Timing {{{
 " ------
 set timeout ttimeout
-set timeoutlen=750  " Time out on mappings
+set timeoutlen=500  " Time out on mappings
 set updatetime=1000 " Idle time to write swap and trigger CursorHold
 
 " Time out on key codes
@@ -170,7 +183,7 @@ nnoremap <Left> :vertical resize -5<CR>
 " Double leader key for toggling visual-line mode
 " nmap <silent> <Leader><Leader> V
 " vmap <Leader><Leader> <Esc>
-nmap <Leader><Leader> :sb<SPACE>
+" nmap <Leader><Leader> :sb<SPACE>
 
 " Change current word in a repeatable manner
 nnoremap cn *``cgn
@@ -347,8 +360,10 @@ nnoremap <Leader>d mzYP`z
 vnoremap <Leader>d YPgv
 
 " Session management shortcuts
-nmap <silent> <Leader>se :<C-u>execute 'SessionSave '.fnamemodify(resolve(getcwd()), ':p:gs?[\\/:-]?_?')<CR>
-nmap <silent> <Leader>os :<C-u>execute 'source '.g:session_directory.'/'.fnamemodify(resolve(getcwd()), ':p:gs?[\\/:-]?_?').'.vim'<CR>
+" Save session
+nmap <silent> <Leader>ss :<C-u>execute 'SessionSave '.fnamemodify(resolve(getcwd()), ':p:gs?[\\/:-]?_?')<CR>
+" load session
+nmap <silent> <Leader>sl :<C-u>execute 'source '.g:session_directory.'/'.fnamemodify(resolve(getcwd()), ':p:gs?[\\/:-]?_?').'.vim'<CR>
 
 " adding saving session by using current working directory of the project
 nnoremap <silent> <C-q> :execute 'SessionSave '.fnamemodify(resolve(getcwd()), ':p:gs?[\\/:-]?_?')<CR>:wqa!<CR>

@@ -73,10 +73,41 @@ function! s:ZoomToggle() "{{{
   endif
 endfunction "}}}
 
+"" Source a range
+" function! SourceRange() range
+"   let tmpsofile = tempname()
+"   call writefile(getline(a:firstline, a:lastline), l:tmpsofile)
+"   execute "source " . l:tmpsofile
+"   call delete(l:tmpsofile)
+" endfunction
+" command! -range Source <line1>,<line2>call SourceRange()
+" then use `:'<,'>Source` to source the selection
+
+" source the current file
+nmap <leader>vs :source %<CR>
+" source a visual range
+vmap <leader>vs y:@"<CR>
+
+
+""""""""""" screenrc specific for copying and pasting
+" if exists("$BUFFERFILE")
+"   vnoremap <silent><leader>y :w! ~/.buffer<CR>
+"   " nnoremap <leader>y :'<,'>w! /home/e367212/.buffer<CR>
+"   " vnoremap <leader>y y :call writefile([getreg('0', 1)], "/home/e367212/.buffer")<CR>
+"   " vnoremap <leader>y :w! /home/e367212/.buffer
+"   nnoremap <silent><leader>p :.-1read ~/.buffer<CR>
+"   " vnoremap <silent><leader>p :'<,'>d|call read ~/.buffer<CR>
+"   xnoremap <leader>p "_d :.-2read ~/.buffer<CR>
+" endif
+
 " a hacky way to get copy and paste through a shared file
+" Copy - paste using file
 vmap <leader>y :w! ~/.vbuf<CR>
 nmap <leader>y :.w! ~/.vbuf<CR>
 nmap <leader>p :r ~/.vbuf<CR>
+
+
+
 
 "" change directory, helpful for vimwiki to switch directory for grepping
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>

@@ -98,25 +98,21 @@ Plug 't9md/vim-quickhl'
 Plug 'junegunn/vim-peekaboo'
 
 
-" for file find and all
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+
+" for file find and all Denite stuff
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neomru.vim'
-"   hook_add: |
-"     let g:neomru#directory_mru_path = $DATA_PATH . '/mru/dir'
-"     let g:neomru#file_mru_path = $DATA_PATH . '/mru/file'
-"     let g:unite_source_file_mru_limit = 5000
-
 Plug 'Shougo/neoyank.vim'
 Plug 'Shougo/junkfile.vim'
 Plug 'chemzqm/unite-location'
 Plug 'chemzqm/denite-git'
 
 
-
-
-
 " tagbar for all the tags
 Plug 'majutsushi/tagbar'
+
 " On-demand loading
 " Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/nerdtree'
@@ -127,6 +123,13 @@ Plug 'christoomey/vim-tmux-navigator'
 " Loading custom VIMrc per project
 Plug 'embear/vim-localvimrc'
 
+
+" ==========================================
+" Lanuage specifics
+" C++ 
+Plug 'octol/vim-cpp-enhanced-highlight'
+
+
 " ==========================================
 " Completion
 " Python related
@@ -136,22 +139,31 @@ Plug 'vim-scripts/python_match.vim', { 'for': 'python' }
 Plug 'raimon49/requirements.txt.vim', { 'for': 'requirements' }
 
 
+" ============ Deoplete completion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " general syntax completion
 Plug 'Shougo/neco-syntax'
 " for 'include' and 'file'/include'
 Plug 'Shougo/neoinclude.vim'
 " C++ completion
-Plug 'Shougo/deoplete-clangx'
+" Plug 'Shougo/deoplete-clangx'
+Plug 'deoplete-plugins/deoplete-clang'
 " GO completion
 Plug 'deoplete-plugins/deoplete-go'
 " Python Completion
-" Plug 'deoplete-plugins/deoplete-jedi'
+Plug 'deoplete-plugins/deoplete-jedi'
 " for tag completion
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'deoplete-plugins/deoplete-tag'
 
+" ============ COC completion
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" ============ clang_complete completion
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+
+" ===================================
 " formatting
 Plug 'sbdchd/neoformat'
 
@@ -164,7 +176,6 @@ Plug 'SirVer/ultisnips'
 " ==========================================
 " Odds and Ends
 Plug 'mechatroner/rainbow_csv'
-
 Plug 'vimwiki/vimwiki'
 
 " ==========================================
@@ -178,33 +189,37 @@ syntax enable
 
 
 """ PLUGINS END """"
-let g:mapleader="\<Space>"
-let g:maplocalleader=';'
-
-" Release keymappings for other purposes
-nnoremap <Space>  <Nop>
-xnoremap <Space>  <Nop>
-nnoremap ;        <Nop>
-xnoremap ;        <Nop>
 
 
-" settings BEFORE loading all the plugins
-call s:source_file('general.vim')
+" Always source these
+source $VIMPATH/config/general.vim
+source $VIMPATH/config/all.vim
+" source $VIMPATH/config/completion.vim
+source $VIMPATH/config/filetype.vim
+source $VIMPATH/config/utils.vim
+source $VIMPATH/config/tabline.vim
+source $VIMPATH/config/linting.vim
+source $VIMPATH/config/looks.vim
 
-call s:source_file('all.vim')
-
-" Loading configuration modules {{{
-call s:source_file('filetype.vim')
-call s:source_file('utils.vim')
-call s:source_file('tabline.vim')
-" call s:source_file('completion.vim')
-call s:source_file('linting.vim')
-call s:source_file('looks.vim')
-
-" source all configurations for plugins
-for f in split(glob('$VIMPATH/config/plugins/*.vim'), '\n')
-	exe 'source' f
-endfor
+" plugin specific settings
+" source $VIMPATH/config/plugins/clang_complete.vim
+" source $VIMPATH/config/plugins/asynccomplete.vim
+" source $VIMPATH/config/plugins/coc.vim
+" source $VIMPATH/config/plugins/ctrlp.vim
+" source $VIMPATH/config/plugins/denite.vim
+source $VIMPATH/config/plugins/deoplete.vim
+source $VIMPATH/config/plugins/gutentags.vim
+" source $VIMPATH/config/plugins/lsp-settings.vim
+" source $VIMPATH/config/plugins/lsp.vim
+source $VIMPATH/config/plugins/neovim.vim
+source $VIMPATH/config/plugins/nerdtree.vim
+source $VIMPATH/config/plugins/sneak.vim
+source $VIMPATH/config/plugins/vimwiki.vim
+source $VIMPATH/config/plugins/nerdtree.vim
+source $VIMPATH/config/plugins/easymotion.vim
+source $VIMPATH/config/plugins/localrc.vim
+source $VIMPATH/config/plugins/tagbar.vim
+source $VIMPATH/config/plugins/fzf.vim
 
 set termguicolors
 

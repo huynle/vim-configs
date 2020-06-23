@@ -11,6 +11,29 @@
 " 2) Otherwise, insert and expand selected snippet (via UltiSnips)
 " 3) Otherwise, insert selected completion item
 " 4) If completion-menu is closed, try to expand empty pairs (via DelimitMate)
+"
+
+" " Disable preview
+" let g:asyncomplete_auto_completeopt = 0
+" set completeopt=menuone,noinsert,noselect,preview
+
+" toggling complete option with Mu Completion on/off
+fun! ToggleCompleteopt()
+  if (g:asyncomplete_auto_popup == 1)
+    " Settings for automatic completion
+		echom "disabling completion"
+		let g:asyncomplete_auto_popup = 0
+  else
+    " Settings for manual completion
+		echom "enabling completion"
+		let g:asyncomplete_auto_popup = 1
+  endif
+
+endf
+nnoremap <leader>tc :call ToggleCompleteopt()<CR>
+
+"
+"
 function s:smart_carriage_return()
 	if pumvisible()
 		let l:info = complete_info()
@@ -39,9 +62,6 @@ function s:smart_carriage_return()
 	return "\<CR>"
 endfunction
 
-" Disable preview
-let g:asyncomplete_auto_completeopt = 0
-set completeopt=menuone,noinsert,noselect
 
 " Smart selection
 inoremap <silent> <CR> <C-R>=<SID>smart_carriage_return()<CR>
@@ -101,6 +121,7 @@ endif
 if executable('clangd')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'clangd',
+				\ 'priority': 4,
         \ 'cmd': {server_info->['clangd', '-background-index']},
         \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
         \ })
@@ -111,9 +132,32 @@ autocmd User asyncomplete_setup call asyncomplete#register_source(
   \ asyncomplete#sources#tags#get_source_options({
   \ 'name': 'tags',
   \ 'whitelist': ['*'],
+	\ 'priority': 9,
   \ 'blacklist': ['go', 'python', 'vim', 'denite-filter'],
   \ 'completor': function('asyncomplete#sources#tags#completor'),
   \ 'config': { 'max_file_size': 5000000 },
   \ }))
 
+
+"""" ultisnips
+
+autocmd User asyncomplete_setup call asyncomplete#register_source(
+	\ asyncomplete#sources#ultisnips#get_source_options({
+	\ 'name': 'snip',
+	\ 'priority': 0,
+	\ 'whitelist': ['*'],
+	\ 'blacklist': ['denite-filter', 'clap_input'],
+	\ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+	\ }))
+
+"""" files
+autocmd User asyncomplete_setup call asyncomplete#register_source(
+	\ asyncomplete#sources#file#get_source_options({
+	\ 'name': 'file',
+	\ 'priority': 10,
+	\ 'whitelist': ['*'],
+	\ 'blacklist': ['denite-filter', 'clap_input'],
+	\ 'completor': function('asyncomplete#sources#file#completor')
+	\ }))
+"
 " vim: set ts=2 sw=2 tw=80 noet :

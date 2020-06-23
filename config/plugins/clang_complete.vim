@@ -120,7 +120,7 @@ endfunction
 
 function! UpdateCscope()
   " Update cscope
-  call system('. $HOME/.vim/scripts/gencscope 2>&1 &')
+  call system('. $VIMPATH/scripts/gencscope 2>&1 &')
 endfunction
 
 """""" SUPERTAB

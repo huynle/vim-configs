@@ -10,5 +10,7 @@ trace*
 *.temp
 tags
 
+fzf
+
 archive
 

@@ -110,6 +110,8 @@ Plug 'chemzqm/unite-location'
 Plug 'chemzqm/denite-git'
 
 
+" for tagging
+Plug 'ludovicchabant/vim-gutentags'
 " tagbar for all the tags
 Plug 'majutsushi/tagbar'
 
@@ -139,22 +141,23 @@ Plug 'vim-scripts/python_match.vim', { 'for': 'python' }
 Plug 'raimon49/requirements.txt.vim', { 'for': 'requirements' }
 
 
-" ============ Deoplete completion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" general syntax completion
-Plug 'Shougo/neco-syntax'
-" for 'include' and 'file'/include'
-Plug 'Shougo/neoinclude.vim'
-" C++ completion
+" " ============ Deoplete completion
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" " general syntax completion
+" Plug 'Shougo/neco-syntax'
+" " for 'include' and 'file'/include'
+" Plug 'Shougo/neoinclude.vim'
+" " C++ completion
 " Plug 'Shougo/deoplete-clangx'
-Plug 'deoplete-plugins/deoplete-clang'
-" GO completion
-Plug 'deoplete-plugins/deoplete-go'
-" Python Completion
-Plug 'deoplete-plugins/deoplete-jedi'
-" for tag completion
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'deoplete-plugins/deoplete-tag'
+" " Plug 'deoplete-plugins/deoplete-clang'
+" " Plug 'tweekmonster/deoplete-clang2'
+" " GO completion
+" Plug 'deoplete-plugins/deoplete-go'
+" " Python Completion
+" " Plug 'deoplete-plugins/deoplete-jedi'
+" " Tag completion
+" Plug 'deoplete-plugins/deoplete-tag'
+
 
 " ============ COC completion
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -162,15 +165,110 @@ Plug 'deoplete-plugins/deoplete-tag'
 " ============ clang_complete completion
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" " ====== vim-clang
+" TODO has potential to have fast c++ completion
+" Plug 'justmao945/vim-clang'
+
+" ============ async complete ======
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+
+" Plug 'Shougo/neco-vim'
+
+" Plug 'prabirshrestha/asyncomplete-necovim.vim'
+" 	depends: asyncomplete.vim
+" 	hook_source: |
+" 		autocmd User asyncomplete_setup call asyncomplete#register_source(
+"			\ asyncomplete#sources#necovim#get_source_options({
+"			\ 'name': 'necovim',
+"			\ 'whitelist': ['vim'],
+"			\ 'completor': function('asyncomplete#sources#necovim#completor'),
+"			\ }))
+
+Plug 'prabirshrestha/asyncomplete-tags.vim'
+
+Plug 'prabirshrestha/asyncomplete-file.vim'
+" 	depends: asyncomplete.vim
+" 	hook_source: |
+" 		autocmd User asyncomplete_setup call asyncomplete#register_source(
+"			\ asyncomplete#sources#file#get_source_options({
+"			\ 'name': 'file',
+"			\ 'priority': 10,
+"			\ 'whitelist': ['*'],
+"			\ 'blacklist': ['denite-filter', 'clap_input'],
+"			\ 'completor': function('asyncomplete#sources#file#completor')
+"			\ }))
+
+" Plug 'wellle/tmux-complete.vim'
+" 	if: "! (has('win32') || has('win64'))"
+" 	depends: asyncomplete.vim
+" 	hook_add: |
+" 		let g:tmuxcomplete#trigger = ''
+" 		let g:tmuxcomplete#asyncomplete_source_options = {
+"			\ 'name': 'tmux',
+"			\ 'priority': 0,
+"			\ 'whitelist': ['*'],
+"			\ 'blacklist': ['denite-filter', 'clap_input'],
+"			\ 'config': {
+"			\   'splitmode': 'words',
+"			\   'filter_prefix': 1,
+"			\   'show_incomplete': 1,
+"			\   'sort_candidates': 0,
+"			\   'scrollback': 0,
+"			\   'truncate': 0
+"			\   }
+"			\ }
+
+Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+" 	depends: asyncomplete.vim
+" 	if: has('python3')
+" 	hook_source: |
+" 		autocmd User asyncomplete_setup call asyncomplete#register_source(
+"			\ asyncomplete#sources#ultisnips#get_source_options({
+"			\ 'name': 'snip',
+"			\ 'priority': 0,
+"			\ 'whitelist': ['*'],
+"			\ 'blacklist': ['denite-filter', 'clap_input'],
+"			\ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+"			\ }))
+
+Plug 'SirVer/ultisnips'
+" 	if: has('python3')
+" 	on_event: FileType
+" 	hook_add: |
+let g:UltiSnipsExpandTrigger = '<C-l>'
+let g:UltiSnipsListSnippets = ''
+let g:UltiSnipsJumpForwardTrigger = '<C-f>'
+let g:UltiSnipsJumpBackwardTrigger = '<C-b>'
+
+Plug 'honza/vim-snippets'
+" 	depends: ultisnips
+" 	on_event: FileType
+" 	if: has('python3')
+" 	merged: 0
+
+" Plug 'dense-analysis/ale'
+" 	on_event: FileType
+" 	hook_add: |
+" 		let g:ale_disable_lsp = 0
+" 		let g:ale_echo_delay = 100
+" 		let g:ale_lint_delay = 1000
+" 		let g:ale_echo_msg_format = '%linter%: %code: %%s [%severity%]'
+" 		let g:ale_history_enabled = 0
+" 		let g:ale_sign_error = '✖'
+" 		let g:ale_sign_warning = 'ⁱ'
+" 		let g:ale_maximum_file_size = 500000
+
+
+
 
 " ===================================
 " formatting
 Plug 'sbdchd/neoformat'
-
-" Snippets
-Plug 'SirVer/ultisnips'
-
-
 
 
 " ==========================================
@@ -203,14 +301,18 @@ source $VIMPATH/config/looks.vim
 
 " plugin specific settings
 " source $VIMPATH/config/plugins/clang_complete.vim
-" source $VIMPATH/config/plugins/asynccomplete.vim
+
+source $VIMPATH/config/plugins/asyncomplete.vim
+source $VIMPATH/config/plugins/lsp-settings.vim
+
+" source $VIMPATH/config/plugins/lsp.vim
+
+" source $VIMPATH/config/plugins/deoplete.vim
+
 " source $VIMPATH/config/plugins/coc.vim
 " source $VIMPATH/config/plugins/ctrlp.vim
 " source $VIMPATH/config/plugins/denite.vim
-source $VIMPATH/config/plugins/deoplete.vim
 source $VIMPATH/config/plugins/gutentags.vim
-" source $VIMPATH/config/plugins/lsp-settings.vim
-" source $VIMPATH/config/plugins/lsp.vim
 source $VIMPATH/config/plugins/neovim.vim
 source $VIMPATH/config/plugins/nerdtree.vim
 source $VIMPATH/config/plugins/sneak.vim

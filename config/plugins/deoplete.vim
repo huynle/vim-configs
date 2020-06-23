@@ -1,7 +1,7 @@
 "" deoplete for nvim
 "" ---
 
-let g:deoplete#enable_at_startup = 0
+let g:deoplete#enable_at_startup = 1
 set completeopt-=preview
 set completeopt+=noselect
 
@@ -152,5 +152,27 @@ function! s:is_whitespace() "{{{
 	return ! col || getline('.')[col - 1] =~? '\s'
 endfunction "}}}
 " }}}
+
+
+
+" ====== deoplete clangx
+" call deoplete#custom#var('clangx', 'clang_binary', '/usr/local/bin/clang')
+
+
+" ====== deoplete clang
+
+" let g:deoplete#sources#clang#libclang_path='/usr/lib64/llvm/libclang.so'
+" let g:deoplete#sources#clang#clang_header='/usr/bin/clang/3.4.2/include/'
+" g:deoplete#sources#clang#std	See this section	No
+" g:deoplete#sources#clang#flags	See this section	No
+" g:deoplete#sources#clang#sort_algo	''	No
+" g:deoplete#sources#clang#clang_complete_database	''	No
+" g:deoplete#sources#clang#include_default_arguments	False	No
+" g:deoplete#sources#clang#filter_availability_kinds	[]	No
+
+" ======= deoplete clang2
+let g:deoplete#sources#clang#executable='/usr/bin/clang'
+
+
 
 "" vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :

@@ -179,25 +179,25 @@ vnoremap <silent> <plug>(quickr_cscope_assignments)     :call <SID>quickr_cscope
 " }}
 
 if g:quickr_cscope_keymaps
-    nmap <leader>g <plug>(quickr_cscope_global)
-    nmap <leader>s <plug>(quickr_cscope_symbols)
-    nmap <leader>c <plug>(quickr_cscope_callers)
-    nmap <leader>f <plug>(quickr_cscope_files)
-    nmap <leader>i <plug>(quickr_cscope_includes)
-    nmap <leader>t <plug>(quickr_cscope_text)
-    nmap <leader>d <plug>(quickr_cscope_functions)
-    nmap <leader>e <plug>(quickr_cscope_egrep)
-    nmap <leader>e <plug>(quickr_cscope_assignments)
+    nmap <localleader>g <plug>(quickr_cscope_global)
+    nmap <localleader>s <plug>(quickr_cscope_symbols)
+    nmap <localleader>c <plug>(quickr_cscope_callers)
+    nmap <localleader>f <plug>(quickr_cscope_files)
+    nmap <localleader>i <plug>(quickr_cscope_includes)
+    nmap <localleader>t <plug>(quickr_cscope_text)
+    nmap <localleader>d <plug>(quickr_cscope_functions)
+    " nmap <localleader>e <plug>(quickr_cscope_egrep)
+    " nmap <localleader>e <plug>(quickr_cscope_assignments)
 
-    vmap <leader>g <plug>(quickr_cscope_global)
-    vmap <leader>s <plug>(quickr_cscope_symbols)
-    vmap <leader>c <plug>(quickr_cscope_callers)
-    vmap <leader>f <plug>(quickr_cscope_files)
-    vmap <leader>i <plug>(quickr_cscope_includes)
-    vmap <leader>t <plug>(quickr_cscope_text)
-    vmap <leader>d <plug>(quickr_cscope_functions)
-    vmap <leader>e <plug>(quickr_cscope_egrep)
-    vmap <leader>e <plug>(quickr_cscope_assignments)
+    vmap <localleader>g <plug>(quickr_cscope_global)
+    vmap <localleader>s <plug>(quickr_cscope_symbols)
+    vmap <localleader>c <plug>(quickr_cscope_callers)
+    vmap <localleader>f <plug>(quickr_cscope_files)
+    vmap <localleader>i <plug>(quickr_cscope_includes)
+    vmap <localleader>t <plug>(quickr_cscope_text)
+    vmap <localleader>d <plug>(quickr_cscope_functions)
+    " vmap <localleader>e <plug>(quickr_cscope_egrep)
+    " vmap <localleader>e <plug>(quickr_cscope_assignments)
 endif
 
 " Use quickfix window for cscope results. Clear previous results before the search.

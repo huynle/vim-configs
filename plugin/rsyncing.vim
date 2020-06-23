@@ -7,12 +7,14 @@ function! RemoteSync (sync_type)
 	" u for Update
 	" t for copying time also
 	" r for recursive
+  "
+  " TODO to update this to automatically strip off the trailing slashes
 	if a:sync_type == "write"
-		let rsync_command = "rsync -arut --exclude-from=".b:rsync_local."/".b:rsync_exclude." ".b:rsync_local."/* ".b:rsync_server.":".b:rsync_remote." &"
-		" let rsync_command = "rsync -arut --exclude-from=".b:rsync_local."/".b:rsync_exclude." ".b:rsync_local."/* ".b:rsync_server.":".b:rsync_remote
+		let rsync_command = "rsync -art --exclude-from=".b:rsync_local."/".b:rsync_exclude." ".b:rsync_local."/ ".b:rsync_server.":".b:rsync_remote." &"
+  elseif a:sync_type == "write-delete"
+		let rsync_command = "rsync -art --exclude-from=".b:rsync_local."/".b:rsync_exclude." ".b:rsync_local."/ ".b:rsync_server.":".b:rsync_remote." --delete &"
 	elseif a:sync_type == "read"
-		let rsync_command = "rsync -arut --exclude-from=".b:rsync_local."/".b:rsync_exclude." ".b:rsync_server.":".b:rsync_remote."/* ".b:rsync_local." &"
-		" let rsync_command = "rsync -arut --exclude-from=".b:rsync_local."/".b:rsync_exclude." ".b:rsync_server.":".b:rsync_remote."/* ".b:rsync_local
+		let rsync_command = "rsync -art --exclude-from=".b:rsync_local."/".b:rsync_exclude." ".b:rsync_server.":".b:rsync_remote." ".b:rsync_local."/ &"
 	endif
 
 	execute "!" . rsync_command
@@ -22,7 +24,8 @@ function! RemoteSync (sync_type)
 endfunction
 
 " bind K to grep word under cursor
-nnoremap <silent> <Leader>sw :silent call RemoteSync("write")<CR>
-nnoremap <silent> <Leader>sr :silent call RemoteSync("read")<CR>
+nnoremap <silent> <Leader>sw :call RemoteSync("write")<CR>
+nnoremap <silent> <Leader>swd :call RemoteSync("write-delete")<CR>
+nnoremap <silent> <Leader>sr :call RemoteSync("read")<CR>
 " au BufWritePost,FileWritePost * silent call RemoteSync()
 

@@ -180,6 +180,9 @@ nnoremap <Up>  :resize -5<CR>
 nnoremap <Right>  :vertical resize +5<CR>
 nnoremap <Left> :vertical resize -5<CR>
 
+" exit out of insert mode in terminal
+tnoremap <Esc> <C-\><C-n>
+
 " Double leader key for toggling visual-line mode
 " nmap <silent> <Leader><Leader> V
 " vmap <Leader><Leader> <Esc>

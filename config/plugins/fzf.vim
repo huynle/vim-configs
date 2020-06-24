@@ -26,17 +26,16 @@
 " :Filetypes	File types
 
 "" KEY MAPPING
-nnoremap <silent><leader>r :<C-u>Denite -resume -refresh -no-start-filter<CR>
-nnoremap <silent><leader>f :<C-u>Files<CR>
+nnoremap <silent><leader><leader> :<C-u>Files<CR>
 nnoremap <silent><leader>g :<C-u>Rg<CR>
-nnoremap <silent><leader>b :<C-u>Buffer<CR>
-nnoremap <silent><leader>m :<C-u>Maps<CR>
-nnoremap <silent><leader>c :<C-u>Commands<CR>
+nnoremap <silent><leader>, :<C-u>Buffer<CR>
 nnoremap <silent><leader>s :<C-u>Snippets<CR>
 " nnoremap <silent><leader>t :<C-u>Tags<CR>
 nnoremap <silent><leader>l :<C-u>Lines<CR>
-nnoremap <silent><leader>h :<C-u>Helptags<CR>
-nnoremap <silent><leader>w :<C-u>Windows<CR>
+nnoremap <silent><leader>hh :<C-u>Helptags<CR>
+nnoremap <silent><leader>hc :<C-u>Commands<CR>
+nnoremap <silent><leader>hm :<C-u>Maps<CR>
+" nnoremap <silent><leader>w :<C-u>Windows<CR>
 
 " Global line completion (not just open buffers. ripgrep required.)
 inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({

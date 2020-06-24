@@ -1,3 +1,4 @@
+let g:EasyMotion_do_mapping=0
 " EasyMotion
 nmap ss <Plug>(easymotion-s2)
 nmap sd <Plug>(easymotion-s)

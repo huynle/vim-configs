@@ -17,6 +17,8 @@
 " let g:asyncomplete_auto_completeopt = 0
 " set completeopt=menuone,noinsert,noselect,preview
 
+let g:asyncomplete_auto_popup = 0
+
 " toggling complete option with Mu Completion on/off
 fun! ToggleCompleteopt()
   if (g:asyncomplete_auto_popup == 1)
@@ -30,7 +32,7 @@ fun! ToggleCompleteopt()
   endif
 
 endf
-nnoremap <leader>tc :call ToggleCompleteopt()<CR>
+nnoremap <leader>cc :call ToggleCompleteopt()<CR>
 
 "
 "

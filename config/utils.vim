@@ -84,9 +84,9 @@ endfunction "}}}
 " then use `:'<,'>Source` to source the selection
 
 " source the current file
-nmap <leader>vs :source %<CR>
+nmap <leader>so :source %<CR>
 " source a visual range
-vmap <leader>vs y:@"<CR>
+vmap <leader>so y:@"<CR>
 
 
 """"""""""" screenrc specific for copying and pasting

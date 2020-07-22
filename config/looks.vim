@@ -82,8 +82,14 @@ function! ToggleBg()
         execute "silent !tmux source-file " . shellescape(expand('~/.tmux/themes/huy-dark.sh'))
               call s:theme_write()
     endif
+		call ToggleTransparent()
                 " call s:theme_write()
     " silent !osascript -e 'tell app "System Events" to keystroke "s" using {shift down, option down, control down}'
+endfunction
+
+function! ToggleTransparent()
+		hi! Normal ctermbg=NONE guibg=NONE
+		hi! NonText ctermbg=NONE guibg=NONE
 endfunction
 
 command! ToggleBackground call ToggleBg()
@@ -99,6 +105,7 @@ if filereadable(s:cache)
 endif
 
 " autocmd MyAutoCmd ColorScheme * call s:reloadBackground()
+call ToggleTransparent()
 
 " vim: set ts=2 sw=2 tw=80 noet :
 

@@ -143,14 +143,14 @@ autocmd User asyncomplete_setup call asyncomplete#register_source(
 
 """" ultisnips
 
-autocmd User asyncomplete_setup call asyncomplete#register_source(
-	\ asyncomplete#sources#ultisnips#get_source_options({
-	\ 'name': 'snip',
-	\ 'priority': 0,
-	\ 'whitelist': ['*'],
-	\ 'blacklist': ['denite-filter', 'clap_input'],
-	\ 'completor': function('asyncomplete#sources#ultisnips#completor'),
-	\ }))
+" autocmd User asyncomplete_setup call asyncomplete#register_source(
+" 	\ asyncomplete#sources#ultisnips#get_source_options({
+" 	\ 'name': 'snip',
+" 	\ 'priority': 0,
+" 	\ 'whitelist': ['*'],
+" 	\ 'blacklist': ['denite-filter', 'clap_input'],
+" 	\ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+" 	\ }))
 
 """" files
 autocmd User asyncomplete_setup call asyncomplete#register_source(

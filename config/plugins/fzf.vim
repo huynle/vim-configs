@@ -31,7 +31,9 @@ nnoremap <silent><leader>g :<C-u>Rg<CR>
 nnoremap <silent><leader>, :<C-u>Buffer<CR>
 nnoremap <silent><leader>s :<C-u>Snippets<CR>
 " nnoremap <silent><leader>t :<C-u>Tags<CR>
-nnoremap <silent><leader>l :<C-u>Lines<CR>
+nnoremap <silent><leader>ll :<C-u>Lines<CR>
+nnoremap <silent><leader>l :<C-u>BLines<CR>
+nnoremap <silent><leader>h :<C-u>History:<CR>
 nnoremap <silent><leader>hh :<C-u>Helptags<CR>
 nnoremap <silent><leader>hc :<C-u>Commands<CR>
 nnoremap <silent><leader>hm :<C-u>Maps<CR>

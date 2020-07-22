@@ -102,7 +102,8 @@ vmap <leader>so y:@"<CR>
 
 " a hacky way to get copy and paste through a shared file
 " Copy - paste using file
-vmap <leader>y :w! ~/.vbuf<CR>
+" vmap <leader>y :w! ~/.vbuf<CR>
+vmap <leader>y ""y :call writefile(getreg('"',1,1), expand('$HOME/.vbuf'))<CR>
 nmap <leader>y :.w! ~/.vbuf<CR>
 nmap <leader>p :r ~/.vbuf<CR>
 

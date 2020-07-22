@@ -17,3 +17,7 @@ autocmd FileType cpp
   " \ | nnoremap <F11> :Step<CR>
   " \ | nnoremap <S-F11> :Finish<CR>
   " \ | nnoremap <RightMouse> :Break<CR>
+
+
+autocmd FileType python
+  \ nnoremap <Leader>td :GdbStartPDB python3 -m pdb %:p

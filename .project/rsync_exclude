@@ -8,9 +8,13 @@ trace*
 
 *.lock
 *.temp
+*.swp
 tags
 
 fzf
 
 archive
+undo
+session
+
 

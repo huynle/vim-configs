@@ -223,7 +223,7 @@ Plug 'prabirshrestha/asyncomplete-file.vim'
 "			\   }
 "			\ }
 
-Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+" Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
 " 	depends: asyncomplete.vim
 " 	if: has('python3')
 " 	hook_source: |
@@ -236,7 +236,7 @@ Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
 "			\ 'completor': function('asyncomplete#sources#ultisnips#completor'),
 "			\ }))
 
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 " 	if: has('python3')
 " 	on_event: FileType
 " 	hook_add: |
@@ -263,7 +263,10 @@ Plug 'honza/vim-snippets'
 " 		let g:ale_sign_warning = 'ⁱ'
 " 		let g:ale_maximum_file_size = 500000
 
+" ==================================
+" Debugger
 
+Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 
 
 " ===================================
@@ -322,6 +325,7 @@ source $VIMPATH/config/plugins/easymotion.vim
 source $VIMPATH/config/plugins/localrc.vim
 source $VIMPATH/config/plugins/tagbar.vim
 source $VIMPATH/config/plugins/fzf.vim
+source $VIMPATH/config/plugins/termdebug.vim
 
 set termguicolors
 

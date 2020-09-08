@@ -2,6 +2,8 @@
 " ---
 let g:lsp_diagnostics_enabled = 0
 let g:lsp_virtual_text_enabled = 0
+let g:lsp_auto_enable = 0
+
 
 " Apply settings for languages that registered LSP
 function! s:on_lsp_buffer_enabled() abort

@@ -15,8 +15,13 @@ function! RemoteSync (sync_type)
 		let rsync_command = "rsync -art --exclude-from=".b:rsync_local."/".b:rsync_exclude." ".b:rsync_local."/ ".b:rsync_server.":".b:rsync_remote." --delete &"
 	elseif a:sync_type == "read"
 		let rsync_command = "rsync -art --exclude-from=".b:rsync_local."/".b:rsync_exclude." ".b:rsync_server.":".b:rsync_remote." ".b:rsync_local."/ &"
+	elseif a:sync_type == "read-delete"
+		let rsync_command = "rsync -art --exclude-from=".b:rsync_local."/".b:rsync_exclude." ".b:rsync_server.":".b:rsync_remote." ".b:rsync_local."/ --delete &"
+	elseif a:sync_type == "read-delete-no-exclude"
+		let rsync_command = "rsync -art ".b:rsync_server.":".b:rsync_remote." ".b:rsync_local."/ --delete &"
 	endif
 
+  " execute "!" . rsync_command
 	execute "!" . rsync_command
 	" execute "!" . rsync_command_reverse
 
@@ -27,5 +32,7 @@ endfunction
 nnoremap <silent> <Leader>sw :call RemoteSync("write")<CR>
 nnoremap <silent> <Leader>swd :call RemoteSync("write-delete")<CR>
 nnoremap <silent> <Leader>sr :call RemoteSync("read")<CR>
+nnoremap <silent> <Leader>srd :call RemoteSync("read-delete")<CR>
+nnoremap <silent> <Leader>srdd :call RemoteSync("read-delete-no-exclude")<CR>
 " au BufWritePost,FileWritePost * silent call RemoteSync()
 

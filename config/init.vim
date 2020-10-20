@@ -272,8 +272,8 @@ Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 
 " ===================================
 " formatting
-Plug 'sbdchd/neoformat'
-
+" Plug 'sbdchd/neoformat'
+Plug 'Chiel92/vim-autoformat'
 
 " ==========================================
 " Odds and Ends

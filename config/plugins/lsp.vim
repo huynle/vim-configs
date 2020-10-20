@@ -1,13 +1,13 @@
 let g:LanguageClient_rootMarkers = ['.project']
 " let g:LanguageClient_settingsPath = ".vscode/settings.json"
-let g:LanguageClient_changeThrottle = 0.5
+let g:LanguageClient_changeThrottle = 0.1
 let g:LanguageClient_diagnosticsList = "Disabled"
 let g:LanguageClient_selectionUI = "Quickfix"
 let g:LanguageClient_serverCommands = {
   \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
   \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
   \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-  \ 'python': ['/home/hle/.cache/vim/venv/neovim3/bin/pyls'],
+  \ 'python': [expand('$HOME/.cache/vim/venv/neovim3/bin/pyls')],
   \ 'cpp': ['/home/hle/.local/opt/cquery/build/release/bin/cquery',
   \ '--log-file=/tmp/cq.log',
   \ '--init={"cacheDirectory":"/home/hle/.cache/vim/cquery/"}'],
@@ -19,7 +19,7 @@ let g:LanguageClient_serverCommands = {
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 " nnoremap <F5> :Denite contextMenu<CR>
-nnoremap <silent> <F2> :<C-u>call LanguageClient#textDocument_rename()<CR>
+nnoremap <silent> <leader>r :<C-u>call LanguageClient#textDocument_rename()<CR>
 
 
 nnoremap <silent> K :<C-u>call LanguageClient#textDocument_hover()<CR>

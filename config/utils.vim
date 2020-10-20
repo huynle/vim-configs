@@ -113,4 +113,7 @@ nmap <leader>p :r ~/.vbuf<CR>
 "" change directory, helpful for vimwiki to switch directory for grepping
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
+
+"" jump to to the next vim merge conflict
+nnoremap <leader>gm /\v^\<\<\<\<\<\<\< \|\=\=\=\=\=\=\=$\|\>\>\>\>\>\>\> /<cr>
 "}}}

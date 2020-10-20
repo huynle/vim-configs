@@ -13,9 +13,9 @@
 " 4) If completion-menu is closed, try to expand empty pairs (via DelimitMate)
 "
 
-" " Disable preview
-" let g:asyncomplete_auto_completeopt = 0
-" set completeopt=menuone,noinsert,noselect,preview
+" Disable preview
+let g:asyncomplete_auto_completeopt = 0
+set completeopt=menuone,noinsert,noselect,preview
 
 let g:asyncomplete_auto_popup = 0
 
@@ -111,13 +111,14 @@ endfunction
 " let g:asyncomplete_preprocessor = [function('s:sort_by_priority_preprocessor')]
 
 """ register pyls - python-language-server
-if executable('pyls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'python -m pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ })
-endif
+" ENABLE IF NOT RUNNING PYENV
+" if executable('pyls')
+"     au User lsp_setup call lsp#register_server({
+"         \ 'name': 'python -m pyls',
+"         \ 'cmd': {server_info->['pyls']},
+"         \ 'whitelist': ['python'],
+"         \ })
+" endif
 
 
 if executable('clangd')

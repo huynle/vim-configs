@@ -16,6 +16,7 @@ function! s:source_file(path)
 	execute 'source' fnameescape($VIMPATH.'/config/'.a:path)
 endfunction
 
+
 " let g:python_host_prog = expand('$VARPATH/venv/neovim/bin/python')
 " let g:python3_host_prog = expand('$VARPATH/venv/neovim/bin/python3')
 
@@ -240,10 +241,10 @@ Plug 'prabirshrestha/asyncomplete-file.vim'
 " 	if: has('python3')
 " 	on_event: FileType
 " 	hook_add: |
-let g:UltiSnipsExpandTrigger = '<C-l>'
-let g:UltiSnipsListSnippets = ''
-let g:UltiSnipsJumpForwardTrigger = '<C-f>'
-let g:UltiSnipsJumpBackwardTrigger = '<C-b>'
+" let g:UltiSnipsExpandTrigger = '<C-l>'
+" let g:UltiSnipsListSnippets = ''
+" let g:UltiSnipsJumpForwardTrigger = '<C-f>'
+" let g:UltiSnipsJumpBackwardTrigger = '<C-b>'
 
 Plug 'honza/vim-snippets'
 " 	depends: ultisnips
@@ -280,6 +281,10 @@ Plug 'mechatroner/rainbow_csv'
 Plug 'vimwiki/vimwiki'
 
 " ==========================================
+Plug 'vim-test/vim-test'
+Plug 'tpope/vim-dispatch' " for async testing and building
+
+" ==========================================
 " Text-objects - use by other plugins
 
 call plug#end()
@@ -314,9 +319,9 @@ source $VIMPATH/config/plugins/lsp-settings.vim
 
 " source $VIMPATH/config/plugins/coc.vim
 " source $VIMPATH/config/plugins/ctrlp.vim
-" source $VIMPATH/config/plugins/denite.vim
+source $VIMPATH/config/plugins/denite.vim
 source $VIMPATH/config/plugins/gutentags.vim
-source $VIMPATH/config/plugins/neovim.vim
+source $VIMPATH/config/plugins/neomake.vim
 source $VIMPATH/config/plugins/nerdtree.vim
 source $VIMPATH/config/plugins/sneak.vim
 source $VIMPATH/config/plugins/vimwiki.vim
@@ -324,8 +329,15 @@ source $VIMPATH/config/plugins/nerdtree.vim
 source $VIMPATH/config/plugins/easymotion.vim
 source $VIMPATH/config/plugins/localrc.vim
 source $VIMPATH/config/plugins/tagbar.vim
-source $VIMPATH/config/plugins/fzf.vim
+" source $VIMPATH/config/plugins/fzf.vim
 source $VIMPATH/config/plugins/termdebug.vim
+source $VIMPATH/config/plugins/vim-test.vim
+
+" Load user custom local settings
+if filereadable($VIMPATH.'/config/local.vim')
+	" call s:source_file('config/local.vim')
+	execute 'source' fnameescape($VIMPATH.'/config/local.vim')
+endif
 
 set termguicolors
 

@@ -1,12 +1,35 @@
-" vim-lsp-settings settings :)
+" vim-lsp settings :)
 " ---
+
 let g:lsp_diagnostics_enabled = 0
 let g:lsp_virtual_text_enabled = 0
 let g:lsp_auto_enable = 1
 
+" let g:lsp_auto_enable = argc() > 0
+let g:lsp_ignorecase = 1
+let g:lsp_signs_enabled = 1
+let g:lsp_async_completion = 1
+let g:lsp_fold_enabled = 0
+let g:lsp_text_edit_enabled = 1
+let g:lsp_peek_alignment = 'top'
+" let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_diagnostics_echo_delay = 400
+let g:lsp_diagnostics_virtual_text_enabled = 0
+let g:lsp_diagnostics_highlights_delay = 400
+let g:lsp_diagnostics_signs_error = {'text': '✖'}
+let g:lsp_diagnostics_signs_warning = {'text': '⬪'}
+let g:lsp_diagnostics_signs_hint = {'text': '▪'}
+let g:lsp_diagnostics_signs_information = {'text': '▫'}
+
 
 " Apply settings for languages that registered LSP
 function! s:on_lsp_buffer_enabled() abort
+
+	if empty(globpath(&rtp, 'autoload/lsp.vim'))
+		finish
+	endif
+
 	setlocal omnifunc=lsp#complete
 	if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
 	setlocal foldmethod=expr
@@ -27,6 +50,13 @@ function! s:on_lsp_buffer_enabled() abort
 	nmap <silent><buffer> ,s     <Plug>(lsp-signature-help)
 	nmap <silent><buffer> gr     <Plug>(lsp-references)
 	nmap         <buffer> <leader>r   <Plug>(lsp-rename)
+
+	nmap <silent><buffer> ,s     <Plug>(lsp-signature-help)
+	nmap <silent><buffer> [d     <Plug>(lsp-previous-diagnostic)
+	nmap <silent><buffer> ]d     <Plug>(lsp-next-diagnostic)
+	nmap <buffer> <Leader>F      <plug>(lsp-document-format)
+	vmap <buffer> <Leader>F      <plug>(lsp-document-range-format)
+
 endfunction
 
 augroup lsp_user_plugin

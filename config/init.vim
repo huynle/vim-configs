@@ -176,6 +176,7 @@ Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 Plug 'prabirshrestha/vim-lsp'
+" automatic installation of language servers
 Plug 'mattn/vim-lsp-settings'
 
 " Plug 'Shougo/neco-vim'

@@ -15,9 +15,6 @@ augroup MyAutoCmd
   " Check if file changed when its window is focus, more eager than 'autoread'
   autocmd FocusGained * :silent! !
 
-  autocmd FileType python
-    \ setlocal foldmethod=indent expandtab smarttab nosmartindent
-    \ | setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=80
 
 	" When editing a file, always jump to the last known cursor position.
 	" Don't do it when the position is invalid or when inside an event handler
@@ -42,9 +39,10 @@ augroup MyAutoCmd
   " Automatically set read-only for files being edited elsewhere
 	autocmd SwapExists * nested let v:swapchoice = 'o'
 
-	autocmd FileType python
-		\ setlocal expandtab smarttab nosmartindent
-		\ | setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=80
+
+  autocmd FileType python
+    \ setlocal foldmethod=indent expandtab smarttab nosmartindent
+    \ | setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=100
 
 
 	autocmd FileType markdown

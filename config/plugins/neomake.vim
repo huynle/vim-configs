@@ -27,11 +27,9 @@ let g:neomake_python_flake8_exe = expand('$HOME/.pyenv/versions/neovim/bin/flake
 " let g:neomake_python_flake8_exe = 'flake8'
 
 " which linter to enable for Python source file linting
-let g:neomake_python_enabled_makers = ['flake8', 'pylint']
+" Looking for 'pylintrc' sitting in the root project folder
 let g:neomake_python_pylint_maker = {
   \ 'args': [
-  \ '--rcfile', expand("$PWD/pylintrc"),
-  \ '--disable', 'C0103, C0111',
   \ '--format', 'text',
   \ '--msg-template="{path}:{line}:{column}:{C}: [{symbol}] {msg}"',
   \ '--report', 'n'
@@ -44,8 +42,10 @@ let g:neomake_python_pylint_maker = {
   \ '%-G%.%#',
   \ }
 
+" Looking at 'setup.cfg' with header [flake8]
 let g:neomake_python_flake8_maker = {
-    \ 'args': ['--ignore=E221,E241,E272,E251,W702,E203,E201,E202',  '--format=default'],
+    \ 'args': [
+		\ '--format=default'],
     \ 'errorformat':
         \ '%E%f:%l: could not compile,%-Z%p^,' .
         \ '%A%f:%l:%c: %t%n %m,' .
@@ -54,7 +54,7 @@ let g:neomake_python_flake8_maker = {
     \ }
 
 
-" ###### RUNNING
+" ###### RUNNING automatically
 " Add an auto command that automatically run Neomake when saving a buffer
 autocmd MyAutoCmd BufWritePost *
 	\ if index(g:lint_filetypes, &filetype) > -1 && empty(&buftype)
@@ -62,4 +62,7 @@ autocmd MyAutoCmd BufWritePost *
 	\| elseif &filetype =~ 'html'
 	\|   Neomake tidy
 	\| endif
+
+
+
 " vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :

@@ -470,7 +470,13 @@ function! OpenChangedFiles()
   endfor
 endfunction
 
-
+if has('nvim')
+  " Terminal mode:
+  tnoremap <C-h> <c-\><c-n><c-w>h
+  tnoremap <C-j> <c-\><c-n><c-w>j
+  tnoremap <C-k> <c-\><c-n><c-w>k
+  tnoremap <C-l> <c-\><c-n><c-w>l
+endif
 
 
 

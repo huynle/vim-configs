@@ -200,7 +200,7 @@ vnoremap <expr> cN "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgN"
 nnoremap cp yap<S-}>p
 
 " fix indents
-nnoremap <leader>a =ip
+" nnoremap <leader>a =ip
 
 " Toggle fold
 nnoremap <CR> za

@@ -1,3 +1,27 @@
+"---- vim-plug setup  ----
+let vimplug_exists=expand('$HOME/.config/nvim/autoload/plug.vim')
+if has('win32')&&!has('win64')
+  let curl_exists=expand('C:\Windows\Sysnative\curl.exe')
+else
+  let curl_exists=expand('curl')
+endif
+
+if !filereadable(vimplug_exists)
+  if !executable(curl_exists)
+    echoerr "You have to install curl or first install vim-plug yourself!"
+    execute "q!"
+  endif
+  echo "Installing Vim-Plug..."
+  echo ""
+  silent exec "!"curl_exists" -fLo " . shellescape(vimplug_exists) . " --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+  let g:not_finish_vimplug = "yes"
+
+  autocmd VimEnter * PlugInstall
+endif
+"-------- end vim-plug setup ----
+
+
+
 " Vim Initialization
 " " ------------------
 set nocompatible
@@ -76,6 +100,8 @@ let $PROJECT=getcwd()
 let $ROOT_MARKER ='.project'
 let $PROJECTCONFIG=$PROJECT.'/'.$ROOT_MARKER
 
+
+
 """ PLUGINS START """"
 
 " ############ PLUG
@@ -121,8 +147,6 @@ Plug 'huynle/cscope.vim'
 " On-demand loading
 " Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/nerdtree'
-" For Linting
-Plug 'neomake/neomake'
 " for tmux to move around with hjkl
 Plug 'christoomey/vim-tmux-navigator'
 " Loading custom VIMrc per project
@@ -173,13 +197,13 @@ Plug 'raimon49/requirements.txt.vim', { 'for': 'requirements' }
 " Plug 'justmao945/vim-clang'
 
 " ============ async complete ======
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
+" Plug 'prabirshrestha/async.vim'
+" Plug 'prabirshrestha/asyncomplete.vim'
+" Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
-Plug 'prabirshrestha/vim-lsp'
+" Plug 'prabirshrestha/vim-lsp'
 " automatic installation of language servers
-Plug 'mattn/vim-lsp-settings'
+" Plug 'mattn/vim-lsp-settings'
 
 " Plug 'Shougo/neco-vim'
 
@@ -193,9 +217,9 @@ Plug 'mattn/vim-lsp-settings'
 "			\ 'completor': function('asyncomplete#sources#necovim#completor'),
 "			\ }))
 
-Plug 'prabirshrestha/asyncomplete-tags.vim'
+" Plug 'prabirshrestha/asyncomplete-tags.vim'
 
-Plug 'prabirshrestha/asyncomplete-file.vim'
+" Plug 'prabirshrestha/asyncomplete-file.vim'
 " 	depends: asyncomplete.vim
 " 	hook_source: |
 " 		autocmd User asyncomplete_setup call asyncomplete#register_source(
@@ -249,7 +273,6 @@ Plug 'SirVer/ultisnips'
 " let g:UltiSnipsJumpForwardTrigger = '<C-f>'
 " let g:UltiSnipsJumpBackwardTrigger = '<C-b>'
 
-Plug 'honza/vim-snippets'
 " 	depends: ultisnips
 " 	on_event: FileType
 " 	if: has('python3')
@@ -268,15 +291,8 @@ Plug 'honza/vim-snippets'
 " 		let g:ale_maximum_file_size = 500000
 
 " ==================================
-" Debugger
-
-Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 
 
-" ===================================
-" formatting
-" Plug 'sbdchd/neoformat'
-Plug 'Chiel92/vim-autoformat'
 
 " ==========================================
 " Odds and Ends
@@ -287,6 +303,64 @@ Plug 'vimwiki/vimwiki'
 Plug 'vim-test/vim-test'
 Plug 'tpope/vim-dispatch' " for async testing and building
 
+
+" trial run
+Plug 'puremourning/vimspector'
+
+
+" ======= LUA - LSP =====
+" " Beta features
+if has('nvim-0.5')
+	" Syntax
+	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+	Plug 'nvim-treesitter/playground'
+
+	" LSP
+	Plug 'neovim/nvim-lspconfig'
+	Plug 'nvim-lua/completion-nvim'
+	Plug 'mattn/vim-lsp-settings'
+
+	" Debugging
+	Plug 'nvim-telescope/telescope-dap.nvim'
+	Plug 'mfussenegger/nvim-dap'
+	Plug 'mfussenegger/nvim-dap-python'
+
+	" Code snippets
+	Plug 'SirVer/ultisnips'
+	Plug 'honza/vim-snippets'
+
+	" Fuzzy finder
+	Plug 'nvim-lua/popup.nvim'
+	Plug 'nvim-lua/plenary.nvim'
+	Plug 'nvim-telescope/telescope.nvim'
+
+
+else
+	" ===================================
+	" formatting
+	" Plug 'sbdchd/neoformat'
+	Plug 'Chiel92/vim-autoformat'
+
+	Plug 'prabirshrestha/async.vim'
+	Plug 'prabirshrestha/asyncomplete.vim'
+	Plug 'prabirshrestha/asyncomplete-lsp.vim'
+	Plug 'prabirshrestha/vim-lsp'
+
+	Plug 'honza/vim-snippets'
+
+	" For Linting
+	Plug 'neomake/neomake'
+
+	" automatic installation of language servers
+	Plug 'mattn/vim-lsp-settings'
+	Plug 'prabirshrestha/asyncomplete-tags.vim'
+	Plug 'prabirshrestha/asyncomplete-file.vim'
+
+	" Debugger
+	Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
+
+end
+
 " ==========================================
 " Text-objects - use by other plugins
 
@@ -295,11 +369,7 @@ call plug#end()
 filetype plugin indent on
 syntax enable
 
-
-
 """ PLUGINS END """"
-
-
 " Always source these
 source $VIMPATH/config/general.vim
 source $VIMPATH/config/all.vim
@@ -313,8 +383,6 @@ source $VIMPATH/config/looks.vim
 " plugin specific settings
 " source $VIMPATH/config/plugins/clang_complete.vim
 
-source $VIMPATH/config/plugins/asyncomplete.vim
-source $VIMPATH/config/plugins/lsp-settings.vim
 
 " source $VIMPATH/config/plugins/lsp.vim
 
@@ -322,9 +390,9 @@ source $VIMPATH/config/plugins/lsp-settings.vim
 
 " source $VIMPATH/config/plugins/coc.vim
 " source $VIMPATH/config/plugins/ctrlp.vim
+
 source $VIMPATH/config/plugins/denite.vim
 source $VIMPATH/config/plugins/gutentags.vim
-source $VIMPATH/config/plugins/neomake.vim
 source $VIMPATH/config/plugins/nerdtree.vim
 source $VIMPATH/config/plugins/sneak.vim
 source $VIMPATH/config/plugins/vimwiki.vim
@@ -333,9 +401,30 @@ source $VIMPATH/config/plugins/easymotion.vim
 source $VIMPATH/config/plugins/localrc.vim
 source $VIMPATH/config/plugins/tagbar.vim
 " source $VIMPATH/config/plugins/fzf.vim
-source $VIMPATH/config/plugins/termdebug.vim
 source $VIMPATH/config/plugins/vim-test.vim
+<<<<<<< HEAD
 source $VIMPATH/config/plugins/cscope.vim
+||||||| constructed merge base
+=======
+" source $VIMPATH/config/plugins/cscope.vim
+
+
+source $VIMPATH/config/plugins/vimspector.vim
+
+if has('nvim-0.5')
+  source $VIMPATH/config/plugins/nvim-lsp.vim
+  " source $VIMPATH/config/plugins/nvim-dap-debugger.vim
+else
+	source $VIMPATH/config/plugins/neomake.vim
+	source $VIMPATH/config/plugins/termdebug.vim
+
+	" for lsp and completion
+	source $VIMPATH/config/plugins/asyncomplete.vim
+	source $VIMPATH/config/plugins/lsp-settings.vim
+	source $VIMPATH/config/plugins/autoformat.vim
+end
+
+>>>>>>> working with lua and nvim lsp and dap
 
 " Load user custom local settings
 if filereadable($VIMPATH.'/config/local.vim')

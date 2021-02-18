@@ -251,7 +251,7 @@ Plug 'raimon49/requirements.txt.vim', { 'for': 'requirements' }
 "			\   }
 "			\ }
 
-Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+" Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
 " 	depends: asyncomplete.vim
 " 	if: has('python3')
 " 	hook_source: |
@@ -304,8 +304,6 @@ Plug 'vim-test/vim-test'
 Plug 'tpope/vim-dispatch' " for async testing and building
 
 
-" trial run
-Plug 'puremourning/vimspector'
 
 
 " ======= LUA - LSP =====
@@ -335,6 +333,8 @@ if has('nvim-0.5')
 	Plug 'nvim-telescope/telescope.nvim'
 
 
+	" trial run
+	Plug 'puremourning/vimspector'
 else
 	" ===================================
 	" formatting
@@ -347,6 +347,7 @@ else
 	Plug 'prabirshrestha/vim-lsp'
 
 	Plug 'honza/vim-snippets'
+	Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
 
 	" For Linting
 	Plug 'neomake/neomake'
@@ -402,18 +403,15 @@ source $VIMPATH/config/plugins/localrc.vim
 source $VIMPATH/config/plugins/tagbar.vim
 " source $VIMPATH/config/plugins/fzf.vim
 source $VIMPATH/config/plugins/vim-test.vim
-<<<<<<< HEAD
 source $VIMPATH/config/plugins/cscope.vim
-||||||| constructed merge base
-=======
 " source $VIMPATH/config/plugins/cscope.vim
 
 
-source $VIMPATH/config/plugins/vimspector.vim
 
 if has('nvim-0.5')
   source $VIMPATH/config/plugins/nvim-lsp.vim
   " source $VIMPATH/config/plugins/nvim-dap-debugger.vim
+	source $VIMPATH/config/plugins/vimspector.vim
 else
 	source $VIMPATH/config/plugins/neomake.vim
 	source $VIMPATH/config/plugins/termdebug.vim
@@ -423,8 +421,6 @@ else
 	source $VIMPATH/config/plugins/lsp-settings.vim
 	source $VIMPATH/config/plugins/autoformat.vim
 end
-
->>>>>>> working with lua and nvim lsp and dap
 
 " Load user custom local settings
 if filereadable($VIMPATH.'/config/local.vim')

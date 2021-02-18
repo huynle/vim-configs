@@ -7,4 +7,4 @@ setlocal foldmethod=syntax
 setlocal nofoldenable
 setlocal commentstring=//\ %s
 " setlocal textwidth=80
-setlocal equalprg=astyle\ --mode=c
+" setlocal equalprg=astyle\ --mode=c

@@ -1,6 +1,6 @@
 " enabling popup
 let g:asyncomplete_auto_popup = 1
-
+" test
 let g:LanguageClient_serverCommands = {
   \ 'python': [expand('$HOME/.pyenv/versions/neovim/bin/pyls')],
   \ }
@@ -46,3 +46,11 @@ function! ToggleVExplorer()
 endfunction
 
 map <silent> <localleader>n :call ToggleVExplorer()<CR>
+
+
+
+"""""
+" copying and pasting from servers
+"
+nmap <leader>ph :silent! r scp://soch/~/.vbuf<CR>
+nmap <leader>pd :silent! r scp://socd/~/.vbuf<CR>

@@ -4,8 +4,13 @@ set shiftwidth=4
 set expandtab
 setlocal nofoldenable
 
-" Use php syntax check when doing :make
-setlocal makeprg=cmake\ --build\ ../build\ -j\ 9
+
+" if there is a make file in the parent directory, then use that directory to
+" call make
+if filereadable(expand("%:p:h")."/Makefile")
+  setlocal makeprg=make\ -C\ %:p:h
+  command! BuildAndDebug :%update | :make | :call vimspector#Launch()
+endif
 
 
 " Enhanced keyboard mappings

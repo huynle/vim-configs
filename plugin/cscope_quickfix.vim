@@ -4,10 +4,13 @@
 " Website:            https://github.com/ronakg/quickr-cscope.vim
 
 " Setup {{
+finish
+
 if exists("g:quickr_cscope_loaded") || !has("cscope") || !has("quickfix")
     finish
 endif
-let g:quickr_cscope_loaded = 1
+
+let g:quickr_cscope_loaded = 0
 " }}
 
 " s:debug_echo {{

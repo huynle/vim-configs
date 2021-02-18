@@ -42,7 +42,8 @@ function s:smart_carriage_return()
 
 		" Detect non-selection and insert new-line
 		if get(l:info, 'selected', -1) == -1
-			return "\<C-y>\<CR>"
+			" return "\<C-y>\<CR>"
+			return "\<Down>\<CR>"
 		endif
 		" Detect snippet and expand (via UltiSnips)
 		if exists('g:UltiSnipsEditSplit')
@@ -66,6 +67,9 @@ endfunction
 
 
 " Smart selection
+" completion_confirm_key has to be cleared for this next to work
+" let g:completion_confirm_key = ""
+" inoremap <expr> <CR>    pumvisible() ? "\<Down>\<CR>" : "\<CR>"
 inoremap <silent> <CR> <C-R>=<SID>smart_carriage_return()<CR>
 
 " Force completion pop-up display
@@ -144,14 +148,14 @@ autocmd User asyncomplete_setup call asyncomplete#register_source(
 
 """" ultisnips
 
-" autocmd User asyncomplete_setup call asyncomplete#register_source(
-" 	\ asyncomplete#sources#ultisnips#get_source_options({
-" 	\ 'name': 'snip',
-" 	\ 'priority': 0,
-" 	\ 'whitelist': ['*'],
-" 	\ 'blacklist': ['denite-filter', 'clap_input'],
-" 	\ 'completor': function('asyncomplete#sources#ultisnips#completor'),
-" 	\ }))
+autocmd User asyncomplete_setup call asyncomplete#register_source(
+	\ asyncomplete#sources#ultisnips#get_source_options({
+	\ 'name': 'snip',
+	\ 'priority': 0,
+	\ 'whitelist': ['*'],
+	\ 'blacklist': ['denite-filter', 'clap_input'],
+	\ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+	\ }))
 
 """" files
 autocmd User asyncomplete_setup call asyncomplete#register_source(

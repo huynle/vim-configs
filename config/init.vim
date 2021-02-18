@@ -113,8 +113,10 @@ Plug 'chemzqm/denite-git'
 
 " for tagging
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'skywind3000/gutentags_plus'
 " tagbar for all the tags
 Plug 'majutsushi/tagbar'
+Plug 'huynle/cscope.vim'
 
 " On-demand loading
 " Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -225,7 +227,7 @@ Plug 'prabirshrestha/asyncomplete-file.vim'
 "			\   }
 "			\ }
 
-" Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
 " 	depends: asyncomplete.vim
 " 	if: has('python3')
 " 	hook_source: |
@@ -238,7 +240,7 @@ Plug 'prabirshrestha/asyncomplete-file.vim'
 "			\ 'completor': function('asyncomplete#sources#ultisnips#completor'),
 "			\ }))
 
-" Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 " 	if: has('python3')
 " 	on_event: FileType
 " 	hook_add: |
@@ -333,6 +335,7 @@ source $VIMPATH/config/plugins/tagbar.vim
 " source $VIMPATH/config/plugins/fzf.vim
 source $VIMPATH/config/plugins/termdebug.vim
 source $VIMPATH/config/plugins/vim-test.vim
+source $VIMPATH/config/plugins/cscope.vim
 
 " Load user custom local settings
 if filereadable($VIMPATH.'/config/local.vim')

@@ -9,14 +9,19 @@ function! RemoteSync (sync_type)
 	" r for recursive
   "
   " TODO to update this to automatically strip off the trailing slashes
+  
+  if !exists("b:rsync_extra_args")
+      let b:rsync_extra_args = ""
+  endif
+
 	if a:sync_type == "write"
-		let rsync_command = "rsync -art --exclude-from=".b:rsync_local."/".b:rsync_exclude." ".b:rsync_local."/ ".b:rsync_server.":".b:rsync_remote." &"
+		let rsync_command = "rsync -art ".b:rsync_extra_args." --exclude-from=".b:rsync_local."/".b:rsync_exclude." ".b:rsync_local."/ ".b:rsync_server.":".b:rsync_remote." &"
   elseif a:sync_type == "write-delete"
-		let rsync_command = "rsync -art --exclude-from=".b:rsync_local."/".b:rsync_exclude." ".b:rsync_local."/ ".b:rsync_server.":".b:rsync_remote." --delete &"
+		let rsync_command = "rsync -art ".b:rsync_extra_args." --exclude-from=".b:rsync_local."/".b:rsync_exclude." ".b:rsync_local."/ ".b:rsync_server.":".b:rsync_remote." --delete &"
 	elseif a:sync_type == "read"
-		let rsync_command = "rsync -art --exclude-from=".b:rsync_local."/".b:rsync_exclude." ".b:rsync_server.":".b:rsync_remote."/ ".b:rsync_local." &"
+		let rsync_command = "rsync -art ".b:rsync_extra_args." --exclude-from=".b:rsync_local."/".b:rsync_exclude." ".b:rsync_server.":".b:rsync_remote."/ ".b:rsync_local." &"
 	elseif a:sync_type == "read-delete"
-		let rsync_command = "rsync -art --exclude-from=".b:rsync_local."/".b:rsync_exclude." ".b:rsync_server.":".b:rsync_remote."/ ".b:rsync_local." --delete &"
+		let rsync_command = "rsync -art ".b:rsync_extra_args." --exclude-from=".b:rsync_local."/".b:rsync_exclude." ".b:rsync_server.":".b:rsync_remote."/ ".b:rsync_local." --delete &"
 	elseif a:sync_type == "read-delete-no-exclude"
 		let rsync_command = "rsync -art ".b:rsync_server.":".b:rsync_remote." ".b:rsync_local."/ --delete &"
 	endif

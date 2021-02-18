@@ -16,5 +16,6 @@ fzf
 archive
 undo
 session
+local.vim
 
 

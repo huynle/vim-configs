@@ -166,6 +166,7 @@ Plug 'vim-python/python-syntax', { 'for': 'python' }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
 Plug 'vim-scripts/python_match.vim', { 'for': 'python' }
 Plug 'raimon49/requirements.txt.vim', { 'for': 'requirements' }
+Plug 'mgedmin/python-imports.vim', { 'for': 'python' }
 
 
 " " ============ Deoplete completion

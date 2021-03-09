@@ -18,6 +18,16 @@ augroup CompletionTriggerCharacter
     autocmd BufEnter *.c,*.cpp let g:completion_trigger_character = ['.', '::']
 augroup end
 
+
+" augroup lsp_document_highlight
+"   autocmd! * <buffer>
+"   autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+"   autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+"   " autocmd CursorHold *.* :lua vim.lsp.diagnostic.show_line_diagnostics()
+"   " autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 300)
+"   autocmd CursorHold * lua vim.lsp.util.show_line_diagnostics()
+" augroup END
+
 " Code snippets
 let g:completion_enable_snippet = 'UltiSnips'
 
@@ -66,3 +76,4 @@ endfunction
 let g:completion_confirm_key = ""
 " inoremap <expr> <CR>    pumvisible() ? "\<Down>\<CR>" : "\<CR>"
 inoremap <silent> <CR> <C-R>=<SID>smart_carriage_return()<CR>
+nnoremap <buffer> <M-CR> :lua vim.lsp.buf.code_action()<CR>

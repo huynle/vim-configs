@@ -4,7 +4,7 @@ local lsp = require('lspconfig')
 -- limit the diagnostic messages
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
-    underline = true,
+    underline = false,
     virtual_text = false,
     signs = true,
     update_in_insert = false,
@@ -54,9 +54,12 @@ local on_attach = function(client, bufnr)
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
       buf_set_keymap("n", "<leader>=", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+      buf_set_keymap("n", "=", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
   elseif client.resolved_capabilities.document_range_formatting then
       buf_set_keymap("n", "<leader>=", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+      buf_set_keymap("n", "=", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
   end
+
 
   -- -- Set autocommands conditional on server_capabilities
   -- if client.resolved_capabilities.document_highlight then

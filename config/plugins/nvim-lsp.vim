@@ -66,3 +66,5 @@ endfunction
 let g:completion_confirm_key = ""
 " inoremap <expr> <CR>    pumvisible() ? "\<Down>\<CR>" : "\<CR>"
 inoremap <silent> <CR> <C-R>=<SID>smart_carriage_return()<CR>
+nnoremap <buffer> <M-CR> :lua vim.lsp.buf.code_action()<CR>
+

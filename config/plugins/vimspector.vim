@@ -48,6 +48,29 @@ let g:vimspector_sidebar_width = 50
 let g:vimspector_code_minwidth = 90
 let g:vimspector_terminal_minwidth = 75
 
+
+" https://github.com/David-Kunz/vim/blob/master/init.vim
+function! VimspectorPytestStrategy(cmd)
+  " let testName = matchlist(a:cmd, '\v -t ''(.*)''')[1]
+  " let testName = matchlist(a:cmd, '\v^(.+)(\s+)(\S+)')[3]
+  " split by space
+  let testName = split(a:cmd, '\v\s')[-1]
+  let pytestExec = split(a:cmd, '\v\s')[0]
+
+  call vimspector#LaunchWithSettings( #{ configuration: 'Pytest: Nearest', TestName: testName} )
+endfunction
+
+let g:test#custom_strategies = {'vimspector_pytest': function('VimspectorPytestStrategy')}
+
+" nnoremap <leader>da :TestNearest -strategy=vimspector_pytest<CR>
+
+func! AddToWatch()
+	let word = expand("<cexpr>")
+	call vimspector#AddWatch(word)
+endfunction
+let g:vimspector_base_dir = expand('$HOME/.config/vimspector-config')
+
+
 function! s:CustomiseUI()
   " Customise the basic UI...
 
@@ -153,6 +176,7 @@ function s:SetUpTerminal()
 	nnoremap <silent> <localleader>B :call vimspector#ToggleConditionalBreakpoint()<CR>
 	nnoremap <silent> <localleader>r :call vimspector#RunToCursor()<CR>
 	nnoremap <silent> <localleader>R :call vimspector#Restart()<CR>
+  nnoremap <silent> <localleader>w :call AddToWatch()<CR>
 	nnoremap <silent> <leader>dd :<C-u>call VimspectorCloseAndRestore()<CR>
 
 endfunction

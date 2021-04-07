@@ -56,8 +56,9 @@ function! VimspectorPytestStrategy(cmd)
   " split by space
   let testName = split(a:cmd, '\v\s')[-1]
   let pytestExec = split(a:cmd, '\v\s')[0]
+  let pytestArgs = split(a:cmd, '\v\s')[1:-2]
 
-  call vimspector#LaunchWithSettings( #{ configuration: 'Pytest: Nearest', TestName: testName} )
+  call vimspector#LaunchWithSettings( #{ configuration: 'Pytest: Nearest', TestName: testName,  VimTestExec: pytestExec, VimTestArgs: pytestArgs} )
 endfunction
 
 let g:test#custom_strategies = {'vimspector_pytest': function('VimspectorPytestStrategy')}
@@ -167,17 +168,20 @@ function s:SetUpTerminal()
   " Customise the terminal window size/position
   " For some reasons terminal buffers in Neovim have line numbers
   " call win_gotoid( g:vimspector_session_windows.terminal )
-  set norelativenumber nonumber
+  " set norelativenumber nonumber
 
 	nnoremap <silent> <localleader>c :call vimspector#Continue()<CR>
 	nnoremap <silent> <localleader>n :call vimspector#StepOver()<CR>
 	nnoremap <silent> <localleader>s :call vimspector#StepInto()<CR>
 	nnoremap <silent> <localleader>o :call vimspector#StepOut()<CR>
 	nnoremap <silent> <localleader>B :call vimspector#ToggleConditionalBreakpoint()<CR>
+  nnoremap <silent> <localleader>b :call vimspector#ToggleBreakpoint()<CR>
 	nnoremap <silent> <localleader>r :call vimspector#RunToCursor()<CR>
 	nnoremap <silent> <localleader>R :call vimspector#Restart()<CR>
   nnoremap <silent> <localleader>w :call AddToWatch()<CR>
 	nnoremap <silent> <leader>dd :<C-u>call VimspectorCloseAndRestore()<CR>
+  nnoremap <silent> <localleader>u :call VimspectorUpFrame()<CR>
+  nnoremap <silent> <localleader>d :call VimspectorDownFrame()<CR>
 
 endfunction
 

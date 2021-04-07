@@ -1,0 +1,98 @@
+{
+    "configurations": {
+        "Python: Launch": {
+            "adapter": "vscode-python",
+            "configuration": {
+                "name": "Python: Launch current file",
+                "type": "python",
+                "request": "launch",
+                "cwd": "${workspaceRoot}",
+                "stopOnEntry": true,
+                "stopAtEntry": true,
+                "console": "externalTerminal",
+                "debugOptions": [],
+                "program": "${file}"
+            }
+        },
+        "Pytest: Nearest - debugpy": {
+            "adapter": "debugpy",
+            "breakpoints": {
+              "exception": {
+                "all": "Y",
+                "uncaught": "Y"
+              }
+            },
+            "configuration": {
+                "name": "Python: Debug Current Test",
+                "type": "python",
+                "request": "launch",
+                "module": "pytest",
+                "cwd": "${workspaceRoot}",
+                "stopOnEntry": false,
+                "stopAtEntry": true,
+                "console": "externalTerminal",
+                "debugOptions": [],
+                "envFile": "${workspaceRoot}/.env",
+                "args": [
+                  "--pdb",
+                   "${workspaceRoot}/${TestName}"
+                 ]
+            }
+        },
+        "Pytest: Nearest": {
+            "adapter": "vscode-python",
+            "breakpoints": {
+              "exception": {
+                "all": "Y",
+                "uncaught": "Y"
+              }
+            },
+            "configuration": {
+                "name": "Python: Debug Current Test",
+                "type": "python",
+                "request": "launch",
+                "module": "pytest",
+                "cwd": "${workspaceRoot}",
+                "stopOnEntry": false,
+                "stopAtEntry": true,
+                "console": "externalTerminal",
+                "debugOptions": [],
+                "envFile": "${workspaceRoot}/.env",
+                "args": [
+                  "--pdb",
+                   "${workspaceRoot}/${TestName}"
+                 ]
+            }
+        },
+        "C - Run-to-entry": {
+            "adapter": "vscode-cpptools",
+            "configuration": {
+                "name": "Cpp: Launch current file",
+                "type": "cppdbg",
+                "request": "launch",
+                "externalConsole": true,
+                "logging": {
+                    "engineLogging": true
+                },
+                "stopOnEntry": true,
+                "stopAtEntry": true,
+                "debugOptions": [],
+                "MIMode": "gdb",
+                "cwd": "${cwd}",
+                "program": "${fileDirname}/.libs/${fileBasenameNoExtension}"
+            },
+            "breakpoints": {
+                "exception": {
+                    "cpp_catch": "",
+                    "cpp_throw": "",
+                    "objc_catch": "",
+                    "objc_throw": "",
+                    "swift_catch": "",
+                    "swift_throw": ""
+                }
+            }
+        }
+    }
+}
+
+

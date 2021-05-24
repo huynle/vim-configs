@@ -175,7 +175,7 @@ function s:SetUpTerminal()
 	nnoremap <silent> <localleader>s :call vimspector#StepInto()<CR>
 	nnoremap <silent> <localleader>o :call vimspector#StepOut()<CR>
 	nnoremap <silent> <localleader>B :call vimspector#ToggleConditionalBreakpoint()<CR>
-  nnoremap <silent> <localleader>b :call vimspector#ToggleBreakpoint()<CR>
+  " nnoremap <silent> <localleader>b :call vimspector#ToggleBreakpoint()<CR>
 	nnoremap <silent> <localleader>r :call vimspector#RunToCursor()<CR>
 	nnoremap <silent> <localleader>R :call vimspector#Restart()<CR>
   nnoremap <silent> <localleader>w :call AddToWatch()<CR>

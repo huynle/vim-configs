@@ -9,7 +9,7 @@ let g:coc_global_extensions = [
     \ 'coc-git',
     \ 'coc-floaterm',
     \ 'coc-yaml',
-    \ 'coc-python',
+    \ 'coc-pyright',
     \ 'coc-clangd',
     \ 'coc-cmake',
     \ 'coc-explorer',
@@ -21,7 +21,6 @@ let g:coc_global_extensions = [
     \ 'coc-json',
     \ 'coc-marketplace',
     \ 'coc-pydocstring',
-    \ 'coc-fzf-preview',
     \ 'coc-sh',
     \ 'coc-spell-checker',
     \ 'coc-docker'
@@ -139,12 +138,12 @@ augroup end
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-vmap <leader>a  <Plug>(coc-codeaction-selected)
+xmap <silent><leader>a  <Plug>(coc-codeaction-selected)
+nmap <silent><leader>a  <Plug>(coc-codeaction-selected)
+vmap <silent><leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying codeAction to the current line.
-nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <silent><leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
 
@@ -197,68 +196,44 @@ let g:coc_explorer_global_presets = {
 \     'position': 'tab',
 \     'quit-on-open': v:true,
 \   },
+\   'tab:$': {
+\     'position': 'tab:$',
+\     'quit-on-open': v:true,
+\   },
 \   'floating': {
 \     'position': 'floating',
 \     'open-action-strategy': 'sourceWindow',
+\     'quit-on-open': v:true
 \   },
 \   'floatingTop': {
 \     'position': 'floating',
 \     'floating-position': 'center-top',
 \     'open-action-strategy': 'sourceWindow',
+\     'quit-on-open': v:true
 \   },
 \   'floatingLeftside': {
 \     'position': 'floating',
 \     'floating-position': 'left-center',
 \     'floating-width': 50,
 \     'open-action-strategy': 'sourceWindow',
+\     'quit-on-open': v:true
 \   },
 \   'floatingRightside': {
 \     'position': 'floating',
 \     'floating-position': 'right-center',
 \     'floating-width': 50,
 \     'open-action-strategy': 'sourceWindow',
+\     'quit-on-open': v:true
 \   },
 \   'simplify': {
-\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]',
+\     'quit-on-open': v:true
 \   }
 \ }
 
-nmap <localleader>e :CocCommand explorer<CR>
+nmap <silent><localleader>e :CocCommand explorer --position left --quit-on-open<CR>
 " nmap <localleader>ee :CocCommand explorer --preset floating<CR>
 autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
-" let g:coc_explorer_global_presets = {
-" \   'floating': {
-" \      'position': 'floating',
-" \   },
-" \   'floatingLeftside': {
-" \      'position': 'floating',
-" \      'floating-position': 'left-center',
-" \      'floating-width': 30,
-" \   },
-" \   'floatingRightside': {
-" \      'position': 'floating',
-" \      'floating-position': 'right-center',
-" \      'floating-width': 30,
-" \   },
-" \   'simplify': {
-" \     'file.child.template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
-" \   }
-" \ }
-"nmap <silent> <space>e :CocCommand explorer<CR>
-" nnoremap <silent> <localleader>e :CocCommand explorer<CR>
-" nmap <space>f :CocCommand explorer --preset floatingRightside<CR>
-autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
-
-" :nnoremap <space>e :CocCommand explorer<CR>
-
-" Use preset argument to open it
-nnoremap <space>ed :CocCommand explorer --preset .vim<CR>
-nnoremap <space>ef :CocCommand explorer --preset floating<CR>
-nnoremap <space>ec :CocCommand explorer --preset cocConfig<CR>
-nnoremap <space>eb :CocCommand explorer --preset buffer<CR>
-
-" List all presets
-nnoremap <space>el :CocList explPresets
 
 
 " Snippets
@@ -278,16 +253,37 @@ let g:coc_snippet_prev = '<c-k>'
 " imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 
+" List all presets
+nnoremap <leader>el :CocFzfList explPresets
 " " Mappings using CoCList:
-nnoremap <silent> <leader>e  :<C-u>CocList diagnostics<cr>
-nnoremap <silent> <leader>o  :<C-u>CocList outline<cr>
-nnoremap <silent> <leader>w  :exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>
-nnoremap <silent> <leader>g  :<C-u>CocList lines<CR>
+nnoremap <silent> <leader>e  :<C-u>CocFzfList diagnostics --current-buf<cr>
+nnoremap <silent> <leader>o  :<C-u>CocFzfList outline<cr>
+nnoremap <silent> <leader>w  :exe 'CocFzfList --interactive --normal --input='.expand('<cword>').' words'<CR>
+nnoremap <silent> <leader>g  :<C-u>CocFzfList lines<CR>
+nnoremap <silent><LocalLeader>c :<C-u>CocFzfList commands<cr>
+nnoremap <silent><LocalLeader>f :<C-u>CocFzfList files<CR>
+nnoremap <silent><LocalLeader>b :<C-u>CocFzfList buffers<CR>
+nnoremap <silent><LocalLeader>m :<C-u>CocFzfList marks<CR>
+nnoremap <silent><LocalLeader>v :<C-u>CocFzfList registers<CR>
+nnoremap <silent><LocalLeader>s  :<C-u>CocFzfList symbols<cr>
+" nnoremap <silent><LocalLeader>g  :<C-u>CocFzfList --normal gstatus<CR>
+nnoremap <silent><LocalLeader>g  :<C-u>CocFzfList  grep<CR>
+nnoremap <silent><LocalLeader>p  :<C-u>CocFzfListResume<CR>
 
-nnoremap <silent><LocalLeader>c :<C-u>CocList commands<cr>
-nnoremap <silent><LocalLeader>f :<C-u>CocList files<CR>
-nnoremap <silent><LocalLeader>b :<C-u>CocList buffers<CR>
-nnoremap <silent><LocalLeader>m :<C-u>CocList marks<CR>
-nnoremap <silent><LocalLeader>v :<C-u>CocList registers<CR>
-nnoremap <silent><LocalLeader>s  :<C-u>CocList -I symbols<cr>
-nnoremap <silent><LocalLeader>g  :<C-u>CocList --normal gstatus<CR>
+
+
+" " " Mappings using CoCList:
+" nnoremap <silent> <leader>e  :<C-u>CocList diagnostics --current-buf<cr>
+" nnoremap <silent> <leader>o  :<C-u>CocList outline<cr>
+" nnoremap <silent> <leader>w  :exe 'CocList --interactive --normal --input='.expand('<cword>').' words'<CR>
+" nnoremap <silent> <leader>g  :<C-u>CocList lines<CR>
+" nnoremap <silent><LocalLeader>c :<C-u>CocList commands<cr>
+" nnoremap <silent><LocalLeader>f :<C-u>CocList files<CR>
+" nnoremap <silent><LocalLeader>b :<C-u>CocList buffers<CR>
+" nnoremap <silent><LocalLeader>m :<C-u>CocList marks<CR>
+" nnoremap <silent><LocalLeader>v :<C-u>CocList registers<CR>
+" nnoremap <silent><LocalLeader>s  :<C-u>CocList symbols<cr>
+" " nnoremap <silent><LocalLeader>g  :<C-u>CocList --normal gstatus<CR>
+" nnoremap <silent><LocalLeader>g  :<C-u>CocList  grep<CR>
+" nnoremap <silent><leader><leader>  :<C-u>CocListResume<CR>
+

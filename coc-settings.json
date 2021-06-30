@@ -120,13 +120,30 @@
     ">>": "gitUnstage"
   },
 
-
+  // look at :h coc-list for more
+	"list.normalMappings": {
+		"v": "action:vsplit",
+		"g": "action:split"
+  },
+  "list.insertMappings": {
+		"<C-r>": "do:refresh",
+		"<C-n>": "normal:j",
+		"<C-p>": "normal:k",
+		"<C-t>": "action:tabe",
+		"<C-s>": "action:split",
+		"<C-v>": "action:vsplit",
+		"<cr>": "do:togglemode"
+  },
 
   "list.source.grep.command": "rg",
-  "list.source.grep.args": ["--no-heading", "--vimgrep", "--hidden"],
-  // "list.source.files.args": ["--hidden", "--files"],
+  // "list.source.grep.args": ["--no-heading", "--vimgrep", "--hidden"],
+  // "list.source.grep.args": ["--hidden"],
+  "list.source.grep.ignoreGitIgnore": true,
+  "list.source.grep.excludePatterns": ["**/.git/*","/tmp/*"],
 
   "list.source.mru.ignoreGitIgnore": true,
+
+  "list.source.files.args": ["--hidden", "--files"],
 
   "pydocstring.formatter": "google",
 

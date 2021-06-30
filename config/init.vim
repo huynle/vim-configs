@@ -329,6 +329,7 @@ if has('nvim-0.5')
 	" Plug 'kabouzeid/nvim-lspinstall'
 	" Plug 'williamboman/nvim-lsp-installer'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	Plug 'antoinemadec/coc-fzf'
 	" Plug 'jackguo380/vim-lsp-cxx-highlight'
 
 	" Debugging

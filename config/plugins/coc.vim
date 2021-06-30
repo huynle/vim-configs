@@ -1,17 +1,16 @@
-  let g:coc_global_extensions = [
-    \ 'coc-snippets',
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+let g:coc_global_extensions = [
     \ 'coc-actions',
     \ 'coc-lists',
-    \ 'coc-emmet',
     \ 'coc-pairs',
-    \ 'coc-tsserver',
+    \ 'coc-git',
     \ 'coc-floaterm',
-    \ 'coc-html',
-    \ 'coc-css',
-    \ 'coc-emoji',
-    \ 'coc-cssmodules',
     \ 'coc-yaml',
     \ 'coc-python',
+    \ 'coc-clangd',
+    \ 'coc-cmake',
     \ 'coc-explorer',
     \ 'coc-svg',
     \ 'coc-prettier',
@@ -20,19 +19,45 @@
     \ 'coc-yank',
     \ 'coc-json',
     \ 'coc-marketplace',
+    \ 'coc-pydocstring',
+    \ 'coc-fzf-preview',
+    \ 'coc-sh',
+    \ 'coc-spell-checker'
     \ ]
 
-" Use tab for trigger completion with characters ahead and navigate.
+" " Use tab for trigger completion with characters ahead and navigate.
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ?
+      \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+let g:coc_snippet_next = '<tab>'
+
+""----------------------- Coc Key Remapping --------------------------
+"" Use <c-space> to enter selected.
+"inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+""Use <C-j> and <C-k> to navigate the completion list:
+"inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" navigate pop up with <C-j> and <C-k>
+inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+
+" -------
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -45,11 +70,45 @@ else
   imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [e <Plug>(coc-diagnostic-prev)
+nmap <silent> ]e <Plug>(coc-diagnostic-next)
+
+" " nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gd :call CocAction('jumpDefinition', 'vsplit')<CR>
+" nmap <silent> <C-]>  <Plug>(coc-definition)
+
+function! s:goto_tag(tagkind) abort
+  let tagname = expand('<cWORD>')
+  let winnr = winnr()
+  let pos = getcurpos()
+  let pos[0] = bufnr()
+
+  if CocAction('jump' . a:tagkind)
+    call settagstack(winnr, { 
+      \ 'curidx': gettagstack()['curidx'], 
+      \ 'items': [{'tagname': tagname, 'from': pos}] 
+      \ }, 't')
+  endif
+endfunction
+nmap <silent> <c-]> :call <SID>goto_tag("Definition")<CR>
+nmap <silent> gi :call <SID>goto_tag("Implementation")<CR>
+nmap <silent> gr :call <SID>goto_tag("References")<CR>
+
+" nmap <silent> <C-]>  <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -57,16 +116,16 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
   else
-    call CocAction('doHover')
+    execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
 
+
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Symbol renaming.
-" nmap <leader>rn <Plug>(coc-rename)
 
 augroup mygroup
   autocmd!
@@ -78,13 +137,14 @@ augroup end
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
-" xmap <leader>a  <Plug>(coc-codeaction-selected)
-" nmap <leader>a  <Plug>(coc-codeaction-selected)
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+vmap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying codeAction to the current line.
-" nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
-" nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Introduce function text object
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -92,6 +152,18 @@ xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
+
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
 
 " Use <TAB> for selections ranges.
 " NOTE: Requires 'textDocument/selectionRange' support from the language server.
@@ -113,16 +185,16 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " provide custom statusline: lightline.vim, vim-airline.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" Mappings using CoCList:
-" Show all diagnostics.
-" TODO add these to which key
-" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" " Mappings using CoCList:
+" " Show all diagnostics.
+" " TODO add these to which key
+nnoremap <silent> <leader>e  :<C-u>CocList diagnostics<cr>
 " " Manage extensions.
 " nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 " " Show commands.
-" nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent> <leader>c  :<C-u>CocList commands<cr>
 " " Find symbol of current document.
-" nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
 " " Search workspace symbols.
 " nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
 " " Do default action for next item.
@@ -170,4 +242,6 @@ let g:coc_snippet_next = '<c-j>'
 let g:coc_snippet_prev = '<c-k>'
 
 " Use <C-j> for both expand and jump (make expand higher priority.)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
+" imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+

@@ -316,9 +316,17 @@ if has('nvim-0.5')
 	Plug 'nvim-treesitter/playground'
 
 	" LSP
-	Plug 'neovim/nvim-lspconfig'
-	Plug 'nvim-lua/completion-nvim'
-	Plug 'mattn/vim-lsp-settings'
+	" Plug 'neovim/nvim-lspconfig'
+	" Plug 'nvim-lua/completion-nvim'
+	" Plug 'mattn/vim-lsp-settings'
+	" Plug 'kabouzeid/nvim-lspinstall'
+	" Plug 'williamboman/nvim-lsp-installer'
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	Plug 'jackguo380/vim-lsp-cxx-highlight'
+
+
+
+
 
 	" Debugging
 	Plug 'nvim-telescope/telescope-dap.nvim'
@@ -411,9 +419,10 @@ source $VIMPATH/config/plugins/cscope.vim
 
 
 if has('nvim-0.5')
-  source $VIMPATH/config/plugins/nvim-lsp.vim
+  " source $VIMPATH/config/plugins/nvim-lsp.vim
   " source $VIMPATH/config/plugins/nvim-dap-debugger.vim
 	source $VIMPATH/config/plugins/vimspector.vim
+	source $VIMPATH/config/plugins/coc.vim
 else
 	source $VIMPATH/config/plugins/neomake.vim
 	source $VIMPATH/config/plugins/termdebug.vim

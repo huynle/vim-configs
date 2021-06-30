@@ -1,6 +1,7 @@
 " vim-lsp settings :)
 " ---
 
+""""" MATTN/VIM-LSP-SETTINGS 
 let g:lsp_diagnostics_enabled = 0
 let g:lsp_virtual_text_enabled = 0
 let g:lsp_auto_enable = 1

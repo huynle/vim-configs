@@ -1,15 +1,15 @@
-local lsp = require('lspconfig')
+-- local lsp = require('lspconfig')
 -- require("nvim-ale-diagnostic")
 
--- limit the diagnostic messages
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    underline = false,
-    virtual_text = false,
-    signs = true,
-    update_in_insert = false,
-  }
-)
+-- -- limit the diagnostic messages
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+--   vim.lsp.diagnostic.on_publish_diagnostics, {
+--     underline = false,
+--     virtual_text = false,
+--     signs = true,
+--     update_in_insert = false,
+--   }
+-- )
 
 -- local on_attach = function(client, bufnr)
 --   -- Keybindings for LSPs
@@ -79,42 +79,43 @@ end
 
 
 
-local map = function(type, key, value)
-	vim.fn.nvim_buf_set_keymap(0,type,key,value,{noremap = true, silent = true});
-end
+-- local map = function(type, key, value)
+-- 	vim.fn.nvim_buf_set_keymap(0,type,key,value,{noremap = true, silent = true});
+-- end
 
-local custom_attach = function(client)
-	print("LSP started.");
-	require'completion'.on_attach(client)
+-- local custom_attach = function(client)
+-- 	print("LSP started.");
+-- 	require'completion'.on_attach(client)
 
-	map('n','gD','<cmd>lua vim.lsp.buf.declaration()<CR>')
-	map('n','gd','<cmd>lua vim.lsp.buf.definition()<CR>')
-	map('n','K','<cmd>lua vim.lsp.buf.hover()<CR>')
-	map('n','gr','<cmd>lua vim.lsp.buf.references()<CR>')
-	map('n','gs','<cmd>lua vim.lsp.buf.signature_help()<CR>')
-	map('n','gi','<cmd>lua vim.lsp.buf.implementation()<CR>')
-	map('n','gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
-	map('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
-	map('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
-	map('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
-	map('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
-	map('n','<leader>ee','<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
-	map('n','<leader>ar','<cmd>lua vim.lsp.buf.rename()<CR>')
-	map('n','<leader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
-	map('n','<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
-	map('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
-end
+-- 	map('n','gD','<cmd>lua vim.lsp.buf.declaration()<CR>')
+-- 	map('n','gd','<cmd>lua vim.lsp.buf.definition()<CR>')
+-- 	map('n','K','<cmd>lua vim.lsp.buf.hover()<CR>')
+-- 	map('n','gr','<cmd>lua vim.lsp.buf.references()<CR>')
+-- 	map('n','gs','<cmd>lua vim.lsp.buf.signature_help()<CR>')
+-- 	map('n','gi','<cmd>lua vim.lsp.buf.implementation()<CR>')
+-- 	map('n','gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
+-- 	map('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+-- 	map('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+-- 	map('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
+-- 	map('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
+-- 	map('n','<leader>ee','<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
+-- 	map('n','<leader>ar','<cmd>lua vim.lsp.buf.rename()<CR>')
+-- 	map('n','<leader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+-- 	map('n','<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
+-- 	map('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
+-- end
 
 
-lsp.pyls.setup{
-  on_attach=on_attach,
-  cmd = { "/root/.local/share/vim-lsp-settings/servers/pyls-all/venv/bin/pyls"},
-}
+-- lsp.pyls.setup{
+--   on_attach=on_attach,
+--   cmd = { "/home/e367212/.local/share/vim-lsp-settings/servers/pylsp-all/venv/bin/pylsp"},
+-- }
 
-lsp.clangd.setup{
-  on_attach=on_attach,
-  cmd = { "/root/.local/share/vim-lsp-settings/servers/clangd/bin/clangd","--background-index"},
-}
+-- -- cmd = { "/home/e367212/.local/share/vim-lsp-settings/servers/clangd/bin/clangd","--background-index"},
+-- lsp.clangd.setup{
+--   on_attach=on_attach,
+--   cmd = { "/opt/tbs/bin/clangd","--background-index"},
+-- }
 
 -- Uncomment to execute the extension test mentioned above.
 -- local function custom_codeAction_callback(_, _, action)
@@ -122,3 +123,79 @@ lsp.clangd.setup{
 -- end
 
 -- vim.lsp.callbacks['textDocument/codeAction'] = custom_codeAction_callback
+--
+
+
+-- Configure lua language server for neovim development
+local lua_settings = {
+  Lua = {
+    runtime = {
+      -- LuaJIT in the case of Neovim
+      version = 'LuaJIT',
+      path = vim.split(package.path, ';'),
+    },
+    diagnostics = {
+      -- Get the language server to recognize the `vim` global
+      globals = {'vim'},
+    },
+    workspace = {
+      -- Make the server aware of Neovim runtime files
+      library = {
+        [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+        [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+      },
+    },
+  }
+}
+
+-- config that activates keymaps and enables snippet support
+local function make_config()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+  return {
+    -- enable snippet support
+    capabilities = capabilities,
+    -- map buffer local keybindings when the language server attaches
+    on_attach = on_attach,
+  }
+end
+
+-- lsp-install
+local function setup_servers()
+  require'lspinstall'.setup()
+
+  -- get all installed servers
+  local servers = require'lspinstall'.installed_servers()
+  -- ... and add manually installed servers
+  table.insert(servers, "clangd")
+  table.insert(servers, "sourcekit")
+  table.insert(servers, "pyright-langserver")
+
+  for _, server in pairs(servers) do
+    local config = make_config()
+
+    -- language specific config
+    if server == "lua" then
+      config.settings = lua_settings
+    end
+    if server == "sourcekit" then
+      config.filetypes = {"swift", "objective-c", "objective-cpp"}; -- we don't want c and cpp!
+    end
+    if server == "pyright-langserver" then
+      config.filetypes = {"python"}; -- we don't want c and cpp!
+    end
+    if server == "clangd" then
+      config.filetypes = {"c", "cpp"}; -- we don't want objective-c and objective-cpp!
+    end
+
+    require'lspconfig'[server].setup(config)
+  end
+end
+
+setup_servers()
+
+-- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+require'lspinstall'.post_install_hook = function ()
+  setup_servers() -- reload installed servers
+  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+end

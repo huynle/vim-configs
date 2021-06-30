@@ -1,0 +1,42 @@
+{
+
+  "coc.preferences.rootPatterns": [
+    ".git",
+    ".vscode"
+  ],
+
+  "coc.preferences.formatOnType":true,
+  "coc.preferences.extensionUpdateCheck":"never",
+  "coc.preferences.formatOnTypeFiletypes":["python"],
+  "coc.preferences.jumpCommand": "drop",
+  "coc.preferences.colorSupport": true,
+
+  "git.addGBlameToVirtualText":true,
+
+  "diagnostic.errorSign": "✘",
+  "diagnostic.infoSign": "ℹ",
+  "diagnostic.hintSign": "➤",
+  "diagnostic.enableHighlightLineNumber": true,
+
+  "codeLens.enable": true,
+  "signature.enable": true,
+
+
+  "yaml.format.enable": true,
+
+
+  "pydocstring.formatter": "google",
+
+  "clangd.semanticHighlighting":true,
+
+  "git.enableGutter": true,
+
+  // Specify file types to spell check.
+  "cSpell.enabledLanguageIds": [
+      "markdown",
+      "yml"
+  ],
+
+  "http.proxyStrictSSL": false,
+  "http.proxy": "http://proxy-lmi.global.lmco.com:80"
+}

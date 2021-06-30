@@ -1,5 +1,14 @@
 " File Types {{{
 "-------------------------------------------------
+function! s:handle_terminal_open()
+    setlocal nobuflisted
+    startinsert
+    setlocal showmode
+    setlocal noruler
+endfunction
+
+function! s:handle_terminal_close()
+endfunction
 
 augroup MyAutoCmd
   " clear group first, then everything else can be loaded
@@ -78,9 +87,13 @@ augroup MyAutoCmd
 
   " autocmd FileType vimwiki nnoremap <silent><buffer> <CR> <Plug>VimwikiSplitLink<CR>
 
+    autocmd TermOpen term://* call s:handle_terminal_open()
+    autocmd TermClose term://* call s:handle_terminal_close()
 
 augroup END
 
 " }}}
+"
+
 
 " vim: set ts=2 sw=2 tw=80 noet :

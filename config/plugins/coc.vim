@@ -3,6 +3,7 @@ set shortmess+=c
 
 let g:coc_global_extensions = [
     \ 'coc-actions',
+    \ 'coc-highlight',
     \ 'coc-lists',
     \ 'coc-pairs',
     \ 'coc-git',
@@ -22,7 +23,8 @@ let g:coc_global_extensions = [
     \ 'coc-pydocstring',
     \ 'coc-fzf-preview',
     \ 'coc-sh',
-    \ 'coc-spell-checker'
+    \ 'coc-spell-checker',
+    \ 'coc-docker'
     \ ]
 
 " " Use tab for trigger completion with characters ahead and navigate.
@@ -185,48 +187,79 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " provide custom statusline: lightline.vim, vim-airline.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" " Mappings using CoCList:
-" " Show all diagnostics.
-" " TODO add these to which key
-nnoremap <silent> <leader>e  :<C-u>CocList diagnostics<cr>
-" " Manage extensions.
-" nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" " Show commands.
-nnoremap <silent> <leader>c  :<C-u>CocList commands<cr>
-" " Find symbol of current document.
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" " Search workspace symbols.
-" nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" " Do default action for next item.
-" nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" " Do default action for previous item.
-" nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" " Resume latest coc list.
-" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " Explorer
 let g:coc_explorer_global_presets = {
+\   '.vim': {
+\     'root-uri': '~/.vim',
+\   },
+\   'tab': {
+\     'position': 'tab',
+\     'quit-on-open': v:true,
+\   },
 \   'floating': {
-\      'position': 'floating',
+\     'position': 'floating',
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingTop': {
+\     'position': 'floating',
+\     'floating-position': 'center-top',
+\     'open-action-strategy': 'sourceWindow',
 \   },
 \   'floatingLeftside': {
-\      'position': 'floating',
-\      'floating-position': 'left-center',
-\      'floating-width': 30,
+\     'position': 'floating',
+\     'floating-position': 'left-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
 \   },
 \   'floatingRightside': {
-\      'position': 'floating',
-\      'floating-position': 'right-center',
-\      'floating-width': 30,
+\     'position': 'floating',
+\     'floating-position': 'right-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
 \   },
 \   'simplify': {
-\     'file.child.template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
 \   }
 \ }
+
+nmap <localleader>e :CocCommand explorer<CR>
+" nmap <localleader>ee :CocCommand explorer --preset floating<CR>
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+" let g:coc_explorer_global_presets = {
+" \   'floating': {
+" \      'position': 'floating',
+" \   },
+" \   'floatingLeftside': {
+" \      'position': 'floating',
+" \      'floating-position': 'left-center',
+" \      'floating-width': 30,
+" \   },
+" \   'floatingRightside': {
+" \      'position': 'floating',
+" \      'floating-position': 'right-center',
+" \      'floating-width': 30,
+" \   },
+" \   'simplify': {
+" \     'file.child.template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+" \   }
+" \ }
 "nmap <silent> <space>e :CocCommand explorer<CR>
-" nnoremap <silent> <leader>e :CocCommand explorer<CR>
+" nnoremap <silent> <localleader>e :CocCommand explorer<CR>
 " nmap <space>f :CocCommand explorer --preset floatingRightside<CR>
 autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+
+" :nnoremap <space>e :CocCommand explorer<CR>
+
+" Use preset argument to open it
+nnoremap <space>ed :CocCommand explorer --preset .vim<CR>
+nnoremap <space>ef :CocCommand explorer --preset floating<CR>
+nnoremap <space>ec :CocCommand explorer --preset cocConfig<CR>
+nnoremap <space>eb :CocCommand explorer --preset buffer<CR>
+
+" List all presets
+nnoremap <space>el :CocList explPresets
+
 
 " Snippets
 " Use <C-l> for trigger snippet expand.
@@ -245,3 +278,16 @@ let g:coc_snippet_prev = '<c-k>'
 " imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 
+" " Mappings using CoCList:
+nnoremap <silent> <leader>e  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <leader>o  :<C-u>CocList outline<cr>
+nnoremap <silent> <leader>w  :exe 'CocList -I --normal --input='.expand('<cword>').' words'<CR>
+nnoremap <silent> <leader>g  :<C-u>CocList lines<CR>
+
+nnoremap <silent><LocalLeader>c :<C-u>CocList commands<cr>
+nnoremap <silent><LocalLeader>f :<C-u>CocList files<CR>
+nnoremap <silent><LocalLeader>b :<C-u>CocList buffers<CR>
+nnoremap <silent><LocalLeader>m :<C-u>CocList marks<CR>
+nnoremap <silent><LocalLeader>v :<C-u>CocList registers<CR>
+nnoremap <silent><LocalLeader>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent><LocalLeader>g  :<C-u>CocList --normal gstatus<CR>

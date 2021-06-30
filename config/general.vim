@@ -28,6 +28,10 @@ set formatoptions-=t         " Don't auto-wrap text
 set tags=./tags;
 set clipboard+=unnamedplus
 
+" What to save for views and sessions:
+set viewoptions=folds,cursor,curdir,slash,unix
+set sessionoptions=curdir,help,tabpages,winsize
+
 " Tabs and Indents {{{
 " ----------------
 " set textwidth=120    " Text width maximum chars before wrapping
@@ -164,9 +168,6 @@ endif
 " Non-standard {{{
 " ------------
 
-" Window-control prefix
-nnoremap  [Window]   <Nop>
-nmap      s [Window]
 
 " Fix keybind name for Ctrl+Spacebar
 map <Nul> <C-Space>
@@ -413,6 +414,10 @@ endfunction
 let g:lasttab = 1
 nmap <silent> \\ :execute 'tabn '.g:lasttab<CR>
 
+" Window-control prefix
+nnoremap  [Window]   <Nop>
+nmap      s [Window]
+
 " Custom window movement
 nnoremap <silent> [Window]g  :<C-u>split<CR>:wincmd p<CR>:e#<CR>
 nnoremap <silent> [Window]v  :<C-u>vsplit<CR>:wincmd p<CR>:e#<CR>
@@ -421,7 +426,7 @@ nnoremap <silent> [Window]T  :tabnew<CR>
 nnoremap <silent> [Window]o  :<C-u>only<CR>
 nnoremap <silent> [Window]b  :b#<CR>
 nnoremap <silent> [Window]c  :close<CR>
-nnoremap <silent> [Window]x  :<C-u>call <SID>BufferEmpty()<CR>
+nnoremap <silent> [Window]x  :<C-u>call <SID>window_empty_buffer()<CR>
 " View tag in vim preview window. This is short for <c-w>}
 " nnoremap <silent> [Window]}  :execute "ptjump " . expand("<cword>")<CR>
 nnoremap <silent> [Window]]  <C-w>]
@@ -431,6 +436,15 @@ nnoremap <silent> [Window]J  <C-w>J
 nnoremap <silent> [Window]K  <C-w>K
 nnoremap <silent> [Window]L  <C-w>L
 nnoremap <silent> [Window]z  <C-w>z
+
+
+function! s:window_empty_buffer()
+	let l:current = bufnr('%')
+	if ! getbufvar(l:current, '&modified')
+		enew
+		silent! execute 'bdelete '.l:current
+	endif
+endfunction
 
 
 function! WipeHiddenBuffers()
@@ -470,8 +484,8 @@ function! OpenChangedFiles()
   endfor
 endfunction
 
+""" Terminal mode:
 if has('nvim')
-  " Terminal mode:
   tnoremap <C-h> <c-\><c-n><c-w>h
   tnoremap <C-j> <c-\><c-n><c-w>j
   tnoremap <C-k> <c-\><c-n><c-w>k

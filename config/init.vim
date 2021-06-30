@@ -33,7 +33,9 @@ if isdirectory($XDG_CONFIG_HOME.'/vim')
 	let $VARPATH=expand('$XDG_CACHE_HOME/vim')
 else
 	let $VIMPATH=expand('$HOME/.config/nvim')
-	let $VARPATH=expand('$HOME/.cache/vim')
+	" Set data/cache directory as $XDG_CACHE_HOME/vim
+	let $VARPATH=
+		\ expand(($XDG_CACHE_HOME ? $XDG_CACHE_HOME : '~/.cache') . '/vim', 1)
 endif
 
 function! s:source_file(path)
@@ -125,11 +127,12 @@ Plug 't9md/vim-quickhl'
 Plug 'junegunn/vim-peekaboo'
 
 
-Plug 'junegunn/fzf'
+" Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " for file find and all Denite stuff
-Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/neoyank.vim'
 Plug 'Shougo/junkfile.vim'
@@ -138,15 +141,19 @@ Plug 'chemzqm/denite-git'
 
 
 " for tagging
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'skywind3000/gutentags_plus'
+" Plug 'ludovicchabant/vim-gutentags'
+" Plug 'skywind3000/gutentags_plus'
 " tagbar for all the tags
-Plug 'majutsushi/tagbar'
-Plug 'huynle/cscope.vim'
+" Plug 'majutsushi/tagbar'
+" Plug 'huynle/cscope.vim'
 
 " On-demand loading
 " Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'scrooloose/nerdtree'
+" Plug 'scrooloose/nerdtree'
+" Plug 'lambdalisue/fern.vim'
+" 			\| Plug 'lambdalisue/nerdfont.vim'
+
+
 " for tmux to move around with hjkl
 Plug 'christoomey/vim-tmux-navigator'
 " Loading custom VIMrc per project
@@ -156,17 +163,17 @@ Plug 'embear/vim-localvimrc'
 " ==========================================
 " Lanuage specifics
 " C++ 
-Plug 'octol/vim-cpp-enhanced-highlight'
+" Plug 'octol/vim-cpp-enhanced-highlight'
 
 
 " ==========================================
 " Completion
 " Python related
-Plug 'vim-python/python-syntax', { 'for': 'python' }
-Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
-Plug 'vim-scripts/python_match.vim', { 'for': 'python' }
-Plug 'raimon49/requirements.txt.vim', { 'for': 'requirements' }
-Plug 'mgedmin/python-imports.vim', { 'for': 'python' }
+" Plug 'vim-python/python-syntax', { 'for': 'python' }
+" Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
+" Plug 'vim-scripts/python_match.vim', { 'for': 'python' }
+" Plug 'raimon49/requirements.txt.vim', { 'for': 'requirements' }
+" Plug 'mgedmin/python-imports.vim', { 'for': 'python' }
 
 
 
@@ -266,7 +273,7 @@ Plug 'mgedmin/python-imports.vim', { 'for': 'python' }
 "			\ 'completor': function('asyncomplete#sources#ultisnips#completor'),
 "			\ }))
 
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 " 	if: has('python3')
 " 	on_event: FileType
 " 	hook_add: |
@@ -322,16 +329,14 @@ if has('nvim-0.5')
 	" Plug 'kabouzeid/nvim-lspinstall'
 	" Plug 'williamboman/nvim-lsp-installer'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
-	Plug 'jackguo380/vim-lsp-cxx-highlight'
-
-
-
-
+	" Plug 'jackguo380/vim-lsp-cxx-highlight'
 
 	" Debugging
 	Plug 'nvim-telescope/telescope-dap.nvim'
-	Plug 'mfussenegger/nvim-dap'
-	Plug 'mfussenegger/nvim-dap-python'
+	" Plug 'mfussenegger/nvim-dap'
+	" Plug 'mfussenegger/nvim-dap-python'
+	Plug 'liuchengxu/vista.vim'
+
 
 	" Code snippets
 	Plug 'SirVer/ultisnips'
@@ -340,7 +345,7 @@ if has('nvim-0.5')
 	" Fuzzy finder
 	Plug 'nvim-lua/popup.nvim'
 	Plug 'nvim-lua/plenary.nvim'
-	Plug 'nvim-telescope/telescope.nvim'
+	" Plug 'nvim-telescope/telescope.nvim'
 
 
 	" trial run
@@ -357,6 +362,7 @@ else
 	Plug 'prabirshrestha/vim-lsp'
 
 	Plug 'honza/vim-snippets'
+  Plug 'SirVer/ultisnips'
 	Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
 
 	" For Linting
@@ -402,18 +408,19 @@ source $VIMPATH/config/looks.vim
 " source $VIMPATH/config/plugins/coc.vim
 " source $VIMPATH/config/plugins/ctrlp.vim
 
-source $VIMPATH/config/plugins/denite.vim
-source $VIMPATH/config/plugins/gutentags.vim
-source $VIMPATH/config/plugins/nerdtree.vim
+" source $VIMPATH/config/plugins/denite.vim
+" source $VIMPATH/config/plugins/gutentags.vim
 source $VIMPATH/config/plugins/sneak.vim
 source $VIMPATH/config/plugins/vimwiki.vim
-source $VIMPATH/config/plugins/nerdtree.vim
+" source $VIMPATH/config/plugins/nerdtree.vim
+" source $VIMPATH/config/plugins/fern.vim
 source $VIMPATH/config/plugins/easymotion.vim
 source $VIMPATH/config/plugins/localrc.vim
-source $VIMPATH/config/plugins/tagbar.vim
+" source $VIMPATH/config/plugins/tagbar.vim
+source $VIMPATH/config/plugins/vista.vim
 " source $VIMPATH/config/plugins/fzf.vim
 source $VIMPATH/config/plugins/vim-test.vim
-source $VIMPATH/config/plugins/cscope.vim
+" source $VIMPATH/config/plugins/cscope.vim
 " source $VIMPATH/config/plugins/cscope.vim
 
 
@@ -423,6 +430,7 @@ if has('nvim-0.5')
   " source $VIMPATH/config/plugins/nvim-dap-debugger.vim
 	source $VIMPATH/config/plugins/vimspector.vim
 	source $VIMPATH/config/plugins/coc.vim
+	" source $VIMPATH/config/plugins/telescope.vim
 else
 	source $VIMPATH/config/plugins/neomake.vim
 	source $VIMPATH/config/plugins/termdebug.vim

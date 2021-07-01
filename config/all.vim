@@ -47,8 +47,8 @@ let g:UltiSnipsJumpBackwardTrigger = '<C-b>'
 
 
 """""" Quickhl
-nmap <LocalLeader>, <Plug>(quickhl-manual-this)
-xmap <LocalLeader>, <Plug>(quickhl-manual-this)
+nmap ** <Plug>(quickhl-manual-this)
+xmap ** <Plug>(quickhl-manual-this)
 
 """""" Junegun/vim-peekaboo
 nnoremap <buffer> <silent> " :<c-u>call peekaboo#peek(v:count1, 'quote',  0)<cr>

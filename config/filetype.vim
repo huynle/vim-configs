@@ -87,8 +87,18 @@ augroup MyAutoCmd
 
   " autocmd FileType vimwiki nnoremap <silent><buffer> <CR> <Plug>VimwikiSplitLink<CR>
 
-    autocmd TermOpen term://* call s:handle_terminal_open()
-    autocmd TermClose term://* call s:handle_terminal_close()
+	autocmd TermOpen term://* call s:handle_terminal_open()
+	autocmd TermClose term://* call s:handle_terminal_close()
+
+
+	" Clean up hidden fugitive buffers
+	autocmd BufReadPost fugitive://* set bufhidden=delete
+
+	" ESCAPE out of fugitive buffer?
+	" autocmd User fugitive
+	" 	\ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+	" 	\   nnoremap <buffer> .. :edit %:h<CR> |
+	" 	\ endif
 
 augroup END
 

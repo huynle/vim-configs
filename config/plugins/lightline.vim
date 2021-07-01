@@ -16,7 +16,17 @@ let g:lightline = {
   \ 'active': {
   \   'left': [
   \     [ 'mode', 'paste' ],
-  \     [ 'git_status', 'diagnostic', 'filename', 'method' ]
+  \     [ 'gitbranch', 'diagnostic', 'readonly', 'filename', 'method' ]
+  \   ],
+  \   'right':[
+  \     [ 'fileformat', 'filetype', 'fileencoding', 'lineinfo', 'percent' ],
+  \     [ 'blame' ]
+  \   ],
+  \ },
+  \ 'inactive': {
+  \   'left': [
+  \     [ 'mode', 'paste' ],
+  \     [ 'gitbranch', 'diagnostic', 'readonly', 'filename', 'method' ]
   \   ],
   \   'right':[
   \     [ 'fileformat', 'filetype', 'fileencoding', 'lineinfo', 'percent' ],
@@ -26,12 +36,15 @@ let g:lightline = {
   \ 'component_function': {
   \   'blame': 'LightlineGitBlame',
   \   'git_status': 'LightlineGitStatus',
+  \   'gitbranch': 'FugitiveHead',
   \   'git_file_status': 'LightlineGitFileStatus',
   \   'method': 'LightlineNearestMethodOrFunction',
-  \   'filename': 'LightlineFilename',
   \   'fileformat': 'LightlineFileformat',
   \   'filetype': 'LightlineFiletype',
   \   'fileencoding': 'LightlineFileencoding',
+  \ },
+  \ 'component': {
+  \   'filename': '%<%{LightLineFilename()}',
   \ }
 \ }
 
@@ -43,7 +56,7 @@ endfunction
 
 function! LightlineGitStatus() abort
   let status = get(g:, 'coc_git_status', '')
-  return winwidth(0) > 80 ? status : ''
+  return winwidth(0) > 10 ? status : ''
 endfunction
 
 function! LightlineGitFileStatus() abort
@@ -51,21 +64,52 @@ function! LightlineGitFileStatus() abort
   return winwidth(0) > 20 ? status : ''
 endfunction
 
+
+function! LightlineFugitive() abort
+  if &filetype ==# 'help'
+    return ''
+  endif
+  if has_key(b:, 'lightline_fugitive') && reltimestr(reltime(b:lightline_fugitive_)) =~# '^\s*0\.[0-5]'
+    return b:lightline_fugitive
+  endif
+  try
+    if exists('*fugitive#head')
+      let head = fugitive#head()
+    else
+      return ''
+    endif
+    let b:lightline_fugitive = head
+    let b:lightline_fugitive_ = reltime()
+    return b:lightline_fugitive
+  catch
+  endtry
+  return ''
+endfunction
+
 function! LightlineNearestMethodOrFunction() abort
   return get(b:, 'vista_nearest_method_or_function', '')
 endfunction
 
-" function! LightlineFugitive()
-"   try
-"     if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*FugitiveHead')
-"       let mark = ''  " edit here for cool mark
-"       let branch = FugitiveHead()
-"       return branch !=# '' ? mark.branch : ''
-"     endif
-"   catch
-"   endtry
-"   return ''
+" function! LightlineFilename()
+"   " let root = fnamemodify(get(b:, 'git_dir'), ':h')
+"   let root = fnamemodify(get(b:, 'gitbranch_path'), ':h:h')
+"   let path = expand('%:p')
+"   if path[:len(root)-1] ==# root
+"     return path[len(root)+1:]
+"   endif
+"   return expand('%')
 " endfunction
+
+function! LightLineFilename()
+  let l:fname = expand('%:t')
+  let l:fpath = expand('%')
+  return &filetype ==# 'dirvish' ?
+        \   (l:fpath ==# getcwd() . '/' ? fnamemodify(l:fpath, ':~') :
+        \   fnamemodify(l:fpath, ':~:.')) :
+        \ &filetype ==# 'fzf' ? 'fzf' :
+        \ '' !=# l:fname ? fnamemodify(l:fpath, ':~:.') : '[No Name]'
+endfunction
+
 
 function! LightlineFileformat()
   return winwidth(0) > 70 ? &fileformat : ''

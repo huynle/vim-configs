@@ -128,14 +128,12 @@ Plug 'junegunn/vim-peekaboo'
 
 
 " Plug 'junegunn/fzf'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 Plug 'ryanoasis/vim-devicons'
 
 " Looks
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'lambdalisue/gina.vim'
+Plug 'itchyny/vim-gitbranch'
 
 " for file find and all Denite stuff
 " Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -335,7 +333,9 @@ if has('nvim-0.5')
 	" Plug 'kabouzeid/nvim-lspinstall'
 	" Plug 'williamboman/nvim-lsp-installer'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
-	Plug 'antoinemadec/coc-fzf'
+	Plug 'antoinemadec/coc-fzf' 
+				\| Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+				\| Plug 'junegunn/fzf.vim'
 	" Plug 'jackguo380/vim-lsp-cxx-highlight'
 
 	" Debugging
@@ -402,6 +402,7 @@ source $VIMPATH/config/filetype.vim
 source $VIMPATH/config/utils.vim
 source $VIMPATH/config/tabline.vim
 source $VIMPATH/config/plugins/lightline.vim
+source $VIMPATH/config/plugins/fugitive.vim
 source $VIMPATH/config/linting.vim
 source $VIMPATH/config/looks.vim
 
@@ -444,9 +445,9 @@ else
 	source $VIMPATH/config/plugins/termdebug.vim
 
 	" for lsp and completion
-	source $VIMPATH/config/plugins/asyncomplete.vim
-	source $VIMPATH/config/plugins/lsp-settings.vim
-	source $VIMPATH/config/plugins/autoformat.vim
+	" source $VIMPATH/config/plugins/asyncomplete.vim
+	" source $VIMPATH/config/plugins/lsp-settings.vim
+	" source $VIMPATH/config/plugins/autoformat.vim
 end
 
 " Load user custom local settings

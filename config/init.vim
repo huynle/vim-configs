@@ -130,6 +130,8 @@ Plug 'junegunn/vim-peekaboo'
 " Plug 'junegunn/fzf'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'ryanoasis/vim-devicons'
+
 
 " for file find and all Denite stuff
 " Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }

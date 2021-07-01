@@ -33,8 +33,8 @@
     }
   },
   "explorer.file.showHiddenFiles": true,
-  "explorer.icon.enableVimDevicons": false,
-  "explorer.icon.enableNerdfont": false,
+  "explorer.icon.enableVimDevicons": true,
+  "explorer.icon.enableNerdfont": true,
   "explorer.previewAction.onHover": false,
   "explorer.file.autoReveal": false,
   "explorer.keyMappings.global": {

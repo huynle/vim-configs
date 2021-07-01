@@ -132,14 +132,18 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'ryanoasis/vim-devicons'
 
+" Looks
+Plug 'itchyny/lightline.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'lambdalisue/gina.vim'
 
 " for file find and all Denite stuff
 " Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/neomru.vim'
-Plug 'Shougo/neoyank.vim'
-Plug 'Shougo/junkfile.vim'
-Plug 'chemzqm/unite-location'
-Plug 'chemzqm/denite-git'
+" Plug 'Shougo/neomru.vim'
+" Plug 'Shougo/neoyank.vim'
+" Plug 'Shougo/junkfile.vim'
+" Plug 'chemzqm/unite-location'
+" Plug 'chemzqm/denite-git'
 
 
 " for tagging
@@ -397,6 +401,7 @@ source $VIMPATH/config/all.vim
 source $VIMPATH/config/filetype.vim
 source $VIMPATH/config/utils.vim
 source $VIMPATH/config/tabline.vim
+source $VIMPATH/config/plugins/lightline.vim
 source $VIMPATH/config/linting.vim
 source $VIMPATH/config/looks.vim
 

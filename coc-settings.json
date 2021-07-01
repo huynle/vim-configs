@@ -11,7 +11,8 @@
   "coc.preferences.jumpCommand": "drop",
   "coc.preferences.colorSupport": true,
 
-  "git.addGBlameToVirtualText":true,
+  "git.addGBlameToVirtualText": false,
+  "git.addGBlameToBufferVar": true,
 
   "diagnostic.errorSign": "✘",
   "diagnostic.infoSign": "ℹ",
@@ -27,13 +28,15 @@
   "explorer.width": 30,
   "explorer.toggle": false,
   "explorer.focus": true,
+  "explorer.git.enable": true,
+  "explorer.file.git.showUntrackedFiles": true,
   "explorer.root.customRules": {
     "vcs": {
       "patterns": [".git", ".hg", ".projections.json"]
     }
   },
   "explorer.file.showHiddenFiles": true,
-  "explorer.icon.enableVimDevicons": true,
+  "explorer.icon.enableVimDevicons": false,
   "explorer.icon.enableNerdfont": true,
   "explorer.previewAction.onHover": false,
   "explorer.file.autoReveal": false,
@@ -143,7 +146,7 @@
 
   "list.source.mru.ignoreGitIgnore": true,
 
-  "list.source.files.args": ["--hidden", "--files"],
+  // "list.source.files.args": ["--hidden", "--files"],
 
   "pydocstring.formatter": "google",
 

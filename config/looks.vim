@@ -1,7 +1,36 @@
+"
+"
+"
+" let g:statusline_cscope_flag = ""
+" set statusline=[%n]%<%f\ %h%m%r\ %=\
+" set statusline+=%(\ [%{g:statusline_cscope_flag}]\ \ \ %)
+" set statusline+=%-14.(%l,%c%V%)\ %P
+
+"" for syntastic
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+
+
+" changing the tab color to make it more obvious
+" hi StatusLine   ctermfg=241   ctermbg=266 guifg=#ffffff guibg=#4e4e4e cterm=bold gui=bold
+
+function! Cscope_dynamic_update_hook(updating)
+		if a:updating
+				let g:statusline_cscope_flag = "C"
+		else
+				let g:statusline_cscope_flag = ""
+		endif
+		execute "redrawstatus!"
+endfunction
+"
+"
+
+
+
+" =============
 " let base16colorspace=256  " Access colors present in 256 colorspace
 " Theme
 " -----
-
 " Enable 256 color terminal
 set t_Co=256
 

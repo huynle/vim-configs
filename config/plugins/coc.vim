@@ -310,14 +310,14 @@ nnoremap <silent> <leader>e  :<C-u>CocList diagnostics --current-buf<cr>
 nnoremap <silent> <leader>o  :<C-u>CocList outline<cr>
 nnoremap <silent> <leader>w  :exe 'CocList --interactive --normal --input='.expand('<cword>').' words'<CR>
 nnoremap <silent> <leader>g  :<C-u>CocList lines<CR>
-nnoremap <silent><LocalLeader>c :<C-u>CocList commands<cr>
 nnoremap <silent><LocalLeader>f :<C-u>CocList files<CR>
 nnoremap <silent><LocalLeader>, :<C-u>CocList mru<CR>
 nnoremap <silent><LocalLeader>b :<C-u>CocList buffers<CR>
-nnoremap <silent><LocalLeader>m :<C-u>CocList maps<CR>
 nnoremap <silent><LocalLeader>v :<C-u>CocList registers<CR>
 nnoremap <silent><LocalLeader>s  :<C-u>CocList symbols<cr>
-nnoremap <silent><LocalLeader>h  :<C-u>CocList helptags<cr>
+nnoremap <silent><LocalLeader>hh  :<C-u>CocList helptags<cr>
+nnoremap <silent><LocalLeader>hc :<C-u>CocList commands<cr>
+nnoremap <silent><LocalLeader>hm :<C-u>CocList maps<CR>
 " nnoremap <silent><LocalLeader>g  :<C-u>CocList --normal gstatus<CR>
 nnoremap <silent><LocalLeader>g  :<C-u>CocList grep<CR>
 nnoremap <silent><leader><leader>  :<C-u>CocListResume<CR>

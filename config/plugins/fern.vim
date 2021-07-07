@@ -201,4 +201,8 @@ function! s:toggle_width(helper) abort
 	execute printf('%d wincmd |', float2nr(g:fern#drawer_width))
 endfunction
 
+
+	nnoremap <silent> <LocalLeader>e :<C-u>Fern -toggle -drawer .<CR>
+	nnoremap <silent> <LocalLeader>a :<C-u>Fern -reveal=% -drawer .<CR>
+
 " vim: set ts=2 sw=2 tw=80 noet :

@@ -154,12 +154,13 @@ Plug 'itchyny/vim-gitbranch'
 " On-demand loading
 " Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " Plug 'scrooloose/nerdtree'
-" Plug 'lambdalisue/fern.vim'
-" 			\| Plug 'lambdalisue/nerdfont.vim'
+Plug 'lambdalisue/fern.vim'
+			\| Plug 'lambdalisue/nerdfont.vim'
 
 
 " for tmux to move around with hjkl
 Plug 'christoomey/vim-tmux-navigator'
+
 " Loading custom VIMrc per project
 Plug 'embear/vim-localvimrc'
 
@@ -324,25 +325,35 @@ Plug 'tpope/vim-dispatch' " for async testing and building
 if has('nvim-0.5')
 	" Syntax
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-	Plug 'nvim-treesitter/playground'
+				\| Plug 'nvim-treesitter/playground'
+				\| Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 	" LSP
-	" Plug 'neovim/nvim-lspconfig'
+	Plug 'neovim/nvim-lspconfig'
+				\| Plug 'kabouzeid/nvim-lspinstall'
+				\| Plug 'glepnir/lspsaga.nvim'
+				\| Plug 'ray-x/lsp_signature.nvim'
+				\| Plug 'kosayoda/nvim-lightbulb'
+	
+	Plug 'simrat39/symbols-outline.nvim'
+
 	" Plug 'nvim-lua/completion-nvim'
 	" Plug 'mattn/vim-lsp-settings'
-	" Plug 'kabouzeid/nvim-lspinstall'
 	" Plug 'williamboman/nvim-lsp-installer'
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
-	Plug 'antoinemadec/coc-fzf' 
-				\| Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-				\| Plug 'junegunn/fzf.vim'
+	"
+	" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	" 			\|	Plug 'antoinemadec/coc-fzf'
+	
 	" Plug 'jackguo380/vim-lsp-cxx-highlight'
+
+	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+	Plug 'junegunn/fzf.vim'
 
 	" Debugging
 	Plug 'nvim-telescope/telescope-dap.nvim'
 	" Plug 'mfussenegger/nvim-dap'
 	" Plug 'mfussenegger/nvim-dap-python'
-	Plug 'liuchengxu/vista.vim'
+	" Plug 'liuchengxu/vista.vim'
 
 
 	" Code snippets
@@ -352,7 +363,7 @@ if has('nvim-0.5')
 	" Fuzzy finder
 	Plug 'nvim-lua/popup.nvim'
 	Plug 'nvim-lua/plenary.nvim'
-	" Plug 'nvim-telescope/telescope.nvim'
+	Plug 'nvim-telescope/telescope.nvim'
 
 
 	" trial run
@@ -422,11 +433,11 @@ source $VIMPATH/config/looks.vim
 source $VIMPATH/config/plugins/sneak.vim
 source $VIMPATH/config/plugins/vimwiki.vim
 " source $VIMPATH/config/plugins/nerdtree.vim
-" source $VIMPATH/config/plugins/fern.vim
+source $VIMPATH/config/plugins/fern.vim
 source $VIMPATH/config/plugins/easymotion.vim
 source $VIMPATH/config/plugins/localrc.vim
 " source $VIMPATH/config/plugins/tagbar.vim
-source $VIMPATH/config/plugins/vista.vim
+" source $VIMPATH/config/plugins/vista.vim
 " source $VIMPATH/config/plugins/fzf.vim
 source $VIMPATH/config/plugins/vim-test.vim
 " source $VIMPATH/config/plugins/cscope.vim
@@ -438,8 +449,11 @@ if has('nvim-0.5')
   " source $VIMPATH/config/plugins/nvim-lsp.vim
   " source $VIMPATH/config/plugins/nvim-dap-debugger.vim
 	source $VIMPATH/config/plugins/vimspector.vim
-	source $VIMPATH/config/plugins/coc.vim
-	" source $VIMPATH/config/plugins/telescope.vim
+	" source $VIMPATH/config/plugins/coc.vim
+	source $VIMPATH/config/plugins/telescope.vim
+	source $VIMPATH/config/plugins/symbols-outline.vim
+	" lua require('plugins.telescope')
+	lua require('plugins.lspconfig')
 else
 	source $VIMPATH/config/plugins/neomake.vim
 	source $VIMPATH/config/plugins/termdebug.vim

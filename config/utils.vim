@@ -107,7 +107,10 @@ vmap <leader>y ""y :call writefile(getreg('"',1,1), expand('$HOME/.vbuf'))<CR>
 nmap <leader>y :.w! ~/.vbuf<CR>
 nmap <leader>p :r ~/.vbuf<CR>
 
-
+" Yank buffer's relative/absolute path to clipboard
+" nnoremap <Leader>y :let @+=expand("%:~:.")<CR>:echo 'Yanked relative path'<CR>
+" nnoremap <Leader>Y :call writefile([expand("%:p")], expand('$HOME/.vbuf'))<CR>:echo 'Yanked absolute path'<CR>
+nnoremap <Leader>Y :call writefile([expand("%:p:h")], expand('$HOME/.vbuf'))<CR>:echo 'Yanked absolute path'<CR>
 
 
 "" change directory, helpful for vimwiki to switch directory for grepping

@@ -56,4 +56,9 @@ xnoremap <buffer> <silent> " :<c-u>call peekaboo#peek(v:count1, 'quote',  1)<cr>
 nnoremap <buffer> <silent> @ :<c-u>call peekaboo#peek(v:count1, 'replay', 0)<cr>
 inoremap <buffer> <silent> <c-r> <c-o>:call peekaboo#peek(1, 'ctrl-r',  0)<cr>
 
+"""""" Pilot
+" let g:pilot_precedence = 'vtab'
+let g:pilot_mode='wintab'
+" let g:pilot_boundary='ignore'
+
 
